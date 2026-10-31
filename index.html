@@ -48,6 +48,13 @@ h2{font-size:28px;line-height:33px;font-weight:800;letter-spacing:-.03em;margin:
 .step-num{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--glow);font-weight:800}
 .step h3{font-size:16px;line-height:21px;font-weight:700;margin:4px 0 6px}
 .step p{font-size:13.5px;line-height:20px;color:var(--ink2);margin:0}
+.dl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dl-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:16px}
+.dl-shots{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.dl-shots img{flex:0 0 calc(50% - 4px);width:calc(50% - 4px);border-radius:12px;display:block}
+.dl-card .step-num{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--glow);font-weight:800}
+.dl-card h3{font-size:16px;line-height:21px;font-weight:700;margin:4px 0 6px}
+.dl-card p{font-size:13.5px;line-height:20px;color:var(--ink2);margin:0}
 .placeholder{border:1.5px dashed var(--border-hi);border-radius:12px;min-height:230px;display:grid;place-items:center;text-align:center;padding:16px;color:var(--ink2);font-size:12.5px;line-height:18px;background:var(--capsule)}
 .placeholder b{color:var(--ink)}
 .trust{border:1px solid rgba(244,185,54,.4);background:linear-gradient(135deg,rgba(244,185,54,.14),rgba(66,130,219,.12));border-radius:22px;padding:20px;text-align:center}
@@ -74,6 +81,7 @@ section{padding-top:40px}
 .shot img{border-radius:8px}
 .shot figcaption{font-size:11px;padding:6px 0 0}
 .steps{grid-template-columns:1fr;gap:12px}
+.dl-steps{grid-template-columns:1fr;gap:12px}
 .step{grid-template-columns:104px 1fr;gap:14px;padding:14px}
 .step img{width:104px}
 .placeholder{min-height:150px;font-size:11px;padding:10px}
@@ -107,11 +115,10 @@ footer span{width:100%;text-align:center}
 
 <section id="download">
 <div class="sec-head"><img src="images/mascot.png" alt=""><h2>How to download</h2></div>
-<div class="steps">
-<div class="step"><div class="placeholder"><span><b>Your screenshot here</b><br>Tap Download</span></div><div><div class="step-num">Step 1</div><h3>Tap Download</h3><p>Tap the Download button on this page.</p></div></div>
-<div class="step"><div class="placeholder"><span><b>Your screenshot here</b><br>Tap Install</span></div><div><div class="step-num">Step 2</div><h3>Tap Install</h3><p>Open the downloaded file and tap Install.</p></div></div>
-<div class="step"><div class="placeholder"><span><b>Your screenshot here</b><br>Play Protect warning</span></div><div><div class="step-num">Step 3</div><h3>If it says “Do not download”</h3><p>That warning is because this is an APK from outside the Play Store.</p></div></div>
-<div class="step"><div class="placeholder"><span><b>Your screenshot here</b><br>Scan app, then Download anyway</span></div><div><div class="step-num">Step 4</div><h3>Scan, then Download anyway</h3><p>Tap Scan app with Play Protect, then Download anyway — only from this official page.</p></div></div>
+<div class="dl-steps">
+<div class="dl-card"><div class="dl-shots"><img src="images/download-site.jpg" alt="Tap Download APK on the site"><img src="images/download-warning.jpg" alt="File might be harmful warning, tap Download anyway"></div><div><div class="step-num">Step 1</div><h3>Download the APK</h3><p>Tap Download APK on this page. If Chrome says “File might be harmful”, tap Download anyway — only from this official page.</p></div></div>
+<div class="dl-card"><div class="dl-shots"><img src="images/download-settings.jpg" alt="Chrome says unknown apps are not allowed, tap Settings"><img src="images/download-allow.jpg" alt="Turn on Allow from this source"></div><div><div class="step-num">Step 2</div><h3>Go to Settings and allow</h3><p>Tap SETTINGS on the unknown-apps warning, then turn on “Allow from this source” and go back.</p></div></div>
+<div class="dl-card"><div class="dl-shots"><img src="images/download-install.jpg" alt="Little Later install prompt, tap Install"></div><div><div class="step-num">Step 3</div><h3>Install and run the app</h3><p>Tap INSTALL when Little Later asks, then open the app.</p></div></div>
 </div>
 <div class="trust" style="margin-top:16px">
 <b>Please trust us — this is not malware.</b>
