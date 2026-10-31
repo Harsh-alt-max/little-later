@@ -1,0 +1,89 @@
+/* ==========================================================================
+   LITTLE LATER — OFFICIAL BRAND & WEBSITE DESIGN TOKENS (v1.1)
+   Default Theme: Deep Midnight Dark Mode (:root)
+   Secondary Theme: Soft Daylight Mode (:root[data-theme="light"])
+   ========================================================================== */
+
+:root,
+:root[data-theme="dark"] {
+  /* Core Surfaces (Dark Mode Default) */
+  --ll-bg-canvas: #08111E;
+  --ll-bg-phone: #0B1626;
+  --ll-surface-card: #132235;
+  --ll-surface-elevated: #17273B;
+  --ll-surface-capsule: #1A2B42;
+  --ll-surface-glass: rgba(19, 34, 53, 0.84);
+
+  /* Typography & Hierarchy Colors */
+  --ll-ink-primary: #F4F7FB;
+  --ll-ink-secondary: #9BB0C9;
+  --ll-ink-muted: rgba(155, 176, 201, 0.68);
+  --ll-ink-quiet-capsule: rgba(244, 247, 251, 0.72);
+  --ll-icon-appbar-quiet: rgba(255, 255, 255, 0.60);
+
+  /* Brand & Accent Colors */
+  --ll-brand-blue: #4282DB;
+  --ll-brand-blue-deep: #2E64B0;
+  --ll-brand-blue-glow: #8EBBFF;
+  --ll-brand-amber: #F4B936;
+  --ll-brand-amber-soft: #FFE17D;
+  --ll-brand-mint: #56CCA9;
+  --ll-brand-coral: #FF7597;
+  --ll-primary-gradient: linear-gradient(115deg, #2E64B0 0%, #4282DB 100%);
+
+  /* Borders & Hairlines */
+  --ll-border-subtle: rgba(172, 196, 228, 0.14);
+  --ll-border-highlight: rgba(142, 187, 255, 0.32);
+
+  /* Sculptural 3D Folder Gradients (Muted Idle -> Bloom Active) */
+  --ll-folder-work: linear-gradient(155deg, #3A5BA0 0%, #243B6B 100%);
+  --ll-folder-love: linear-gradient(155deg, #B84A69 0%, #7E2B45 100%);
+  --ll-folder-hobby: linear-gradient(155deg, #2A8C72 0%, #195947 100%);
+  --ll-folder-custom: linear-gradient(155deg, #7B52AB 0%, #4B2E70 100%);
+  --ll-folder-new: linear-gradient(155deg, #1E324C 0%, #142236 100%);
+
+  /* Typography Scale (Strict 1.6x Primary-to-Secondary Ratio) */
+  --ll-font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+  --ll-font-serif-accent: "Instrument Serif", "Newsreader", Georgia, serif;
+
+  --ll-text-hero: 30px;          /* Line-height: 35px, Weight: 800 */
+  --ll-text-hero-sub: 18px;      /* ~1.6x smaller than hero */
+  --ll-text-screen-title: 28px;  /* Line-height: 33px, Weight: 800 */
+  --ll-text-section-h2: 20px;    /* Line-height: 25px, Weight: 750 */
+  --ll-text-card-title: 16px;    /* Line-height: 21px, Weight: 700 */
+  --ll-text-body-sub: 12.5px;    /* 1.6x smaller than 20px section title, Weight: 400, Opacity: 0.68 */
+  --ll-text-meta-caption: 10px;  /* 1.6x smaller than 16px card title, Weight: 500, Opacity: 0.65 */
+
+  /* Radii & Elevation */
+  --ll-radius-card: 22px;
+  --ll-radius-folder: 26px;
+  --ll-radius-pill: 999px;
+  --ll-shadow-card: 0 14px 34px rgba(4, 10, 20, 0.42);
+  --ll-shadow-primary-btn: 0 10px 24px rgba(46, 100, 176, 0.34);
+
+  /* Motion & Spring Physics */
+  --ll-spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ll-spring-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root[data-theme="light"] {
+  --ll-bg-canvas: #E6EFFA;
+  --ll-bg-phone: #F1F6FC;
+  --ll-surface-card: #FFFFFF;
+  --ll-surface-elevated: #FAFCFF;
+  --ll-surface-capsule: #E6EFF9;
+  --ll-surface-glass: rgba(255, 255, 255, 0.88);
+
+  --ll-ink-primary: #132033;
+  --ll-ink-secondary: #516885;
+  --ll-ink-muted: rgba(81, 104, 133, 0.70);
+  --ll-ink-quiet-capsule: rgba(19, 32, 51, 0.72);
+  --ll-icon-appbar-quiet: rgba(19, 32, 51, 0.60);
+
+  --ll-brand-blue: #28599F;
+  --ll-brand-blue-deep: #1E4682;
+  --ll-brand-blue-glow: #3577D4;
+  --ll-border-subtle: rgba(40, 89, 159, 0.14);
+  --ll-border-highlight: rgba(40, 89, 159, 0.26);
+  --ll-shadow-card: 0 12px 28px rgba(24, 52, 92, 0.08);
+}
