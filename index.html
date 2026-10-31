@@ -45,7 +45,18 @@ nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px soli
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-primary:hover{background:var(--deep)}
-.btn-nav{padding:10px 20px;font-size:14px}
+.btn-nav{padding:10px 20px;font-size:14px;position:relative;overflow:hidden;isolation:isolate}
+.btn-nav::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-180%) skewX(-20deg);animation:navshine 3s ease-in-out infinite;pointer-events:none}
+@keyframes navshine{0%{transform:translateX(-180%) skewX(-20deg)}25%{transform:translateX(320%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}
+.capsule{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--elevated);color:var(--ink);padding:12px 20px;border-radius:999px;font:700 14px var(--sans);text-decoration:none}
+.capsule:hover{border-color:var(--glow);text-decoration:none}
+.btn{transition:background .2s ease,transform .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.feature,.step{transition:transform .3s ease}
+.feature:hover,.step:hover{transform:translateY(-3px)}
+.phone{animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.btn-nav::after,.phone{animation:none}.btn,.feature,.step{transition:none}}
 main{display:block}
 section{padding:88px 0;scroll-margin-top:88px}
 section + section{border-top:1px solid var(--border)}
@@ -97,7 +108,7 @@ section{padding:64px 0}
 .nav-inner{flex-wrap:wrap;gap:10px}
 .nav-links{width:100%;justify-content:space-between;gap:14px}
 .nav-links .btn-nav{flex:1;text-align:center}
-.hero-cta .btn{width:100%}
+.hero-cta .btn,.hero-cta .capsule{width:100%}
 .phone{max-width:300px}
 .grid3{grid-template-columns:1fr}
 .feature-img{height:380px}
@@ -125,7 +136,7 @@ section{padding:64px 0}
 <p class="eyebrow">Your ideas, never forgotten</p>
 <h1>Save the <em>Idea</em>.<br>Come Back to It Later.</h1>
 <p class="hero-sub">Save Reels, videos, links, and ideas. Organize them and set reminders to revisit them.</p>
-<div class="hero-cta"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a></div>
+<div class="hero-cta" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a><a class="capsule" href="#install">How to download</a></div>
 <p class="hero-note">Android App &middot; Account Sign-in Optional</p>
 </div>
 <div>
@@ -150,7 +161,7 @@ section{padding:64px 0}
 <h2 id="how-heading">Find it. Save it. Revisit it.</h2>
 <div class="grid3 how-steps">
 <div class="step"><p class="step-num">01</p><img src="images/reel.jpg" alt="A Reel worth saving" width="480" height="1040" loading="lazy" decoding="async"><h3>Find</h3><p>Discover something worth saving.</p></div>
-<div class="step"><p class="step-num">02</p><img src="images/apps.jpg" alt="Sharing a Reel with Little Later" width="480" height="1040" loading="lazy" decoding="async"><h3>Save</h3><p>Share it with Little Later.</p></div>
+<div class="step"><p class="step-num">02</p><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1040" loading="lazy" decoding="async"><h3>Save</h3><p>Share it with Little Later.</p></div>
 <div class="step"><p class="step-num">03</p><img src="images/reminder.jpg" alt="A Little Later reminder for a saved Reel" width="480" height="1040" loading="lazy" decoding="async"><h3>Revisit</h3><p>Come back when the time is right.</p></div>
 </div>
 </div>
@@ -161,6 +172,7 @@ section{padding:64px 0}
 <div class="wrap download">
 <h2 id="download-heading">Your next great find deserves a Little Later.</h2>
 <a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a>
+<p style="margin:18px 0 0"><a class="capsule" href="#install">How to download</a></p>
 <p class="download-info">Android APK &middot; Version 1.0.0 &middot; 6.4 MB</p>
 <p class="download-note">Google Play release planned.</p>
 </div>
