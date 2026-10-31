@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
---bg:#08111E;--phone:#0B1626;--card:#132235;--elevated:#17273B;--capsule:#1A2B42;
+--bg:#08111E;--phone:#0B1626;--card:#132235;--elevated:#17273B;
 --ink:#F4F7FB;--ink2:#9BB0C9;--blue:#4282DB;--deep:#2E64B0;--glow:#8EBBFF;--amber:#F4B936;
 --border:rgba(172,196,228,.16);
 --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;
@@ -41,99 +41,69 @@ nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px soli
 .nav-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .nav-links a{color:var(--ink2);font-weight:600;font-size:15px}
 .nav-links a:hover{color:var(--ink);text-decoration:none}
-.btn{display:inline-block;border:0;cursor:pointer;border-radius:999px;padding:14px 26px;font:700 15px var(--sans);text-align:center;text-decoration:none}
+.btn{display:inline-block;border:0;cursor:pointer;border-radius:999px;padding:14px 28px;font:700 15px var(--sans);text-align:center;text-decoration:none}
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-primary:hover{background:var(--deep)}
-.btn-secondary{background:var(--elevated);color:var(--ink);border:1px solid var(--border)}
-.btn-secondary:hover{border-color:var(--glow)}
 .btn-nav{padding:10px 20px;font-size:14px}
 main{display:block}
-section{padding:72px 0;scroll-margin-top:88px}
+section{padding:88px 0;scroll-margin-top:88px}
 section + section{border-top:1px solid var(--border)}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--glow);margin:0 0 14px}
-h1{font-size:clamp(36px,5vw,52px);line-height:1.08;letter-spacing:-.03em;margin:0 0 18px;font-weight:800}
+h1{font-size:clamp(38px,5.2vw,54px);line-height:1.08;letter-spacing:-.03em;margin:0 0 18px;font-weight:800}
 h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--amber)}
-h2{font-size:clamp(26px,3.4vw,32px);line-height:1.2;letter-spacing:-.02em;margin:0 0 14px;font-weight:800}
-h3{font-size:19px;line-height:1.35;margin:0 0 8px;font-weight:700}
-.lede{font-size:17px;line-height:1.65;color:var(--ink2);max-width:640px;margin:0}
-.lede b,.lede strong{color:var(--ink)}
-.hero{padding:64px 0 72px}
+h2{font-size:clamp(28px,3.6vw,36px);line-height:1.2;letter-spacing:-.02em;margin:0 0 36px;font-weight:800;text-align:center}
+h3{font-size:19px;line-height:1.35;margin:0 0 6px;font-weight:700}
+.hero{padding:72px 0 88px}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero-sub{font-size:18px;line-height:1.65;color:var(--ink2);margin:0}
+.hero-cta{margin-top:28px}
 .hero-note{color:var(--ink2);font-size:14px;margin:18px 0 0}
-.phone{background:var(--phone);border:1px solid var(--border);border-radius:36px;padding:12px;max-width:320px;margin:0 auto}
-.phone img{border-radius:26px;display:block;width:100%}
-.phone-caption{text-align:center;color:var(--ink2);font-size:13px;margin:14px 0 0}
-.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:32px}
-.problem-grid h3{border-top:2px solid var(--deep);padding-top:14px}
-.problem-grid p,.feature p,.step-card p,.trust-item p{color:var(--ink2);font-size:15px;line-height:1.65;margin:0}
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
-.feature-img{width:100%;height:280px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:18px}
-.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
-.step-card .step-num{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--glow);font-weight:800;margin:0 0 10px}
-.step-card img{width:100%;height:220px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:16px}
-.showcase-note{color:var(--ink2);font-size:14px;margin:0 0 28px}
-.showcase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.showcase-img{width:100%;height:380px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block}
-.showcase-placeholder{height:380px;border:1.5px dashed var(--border);border-radius:16px;background:var(--card);display:grid;place-items:center;text-align:center;padding:24px;color:var(--ink2);font-size:14px;line-height:1.6}
-.showcase-placeholder b{display:block;color:var(--ink);margin-bottom:6px}
-.showcase-grid figcaption{font-weight:700;font-size:15px;padding:12px 4px 0}
-.download-box{background:var(--elevated);border:1px solid var(--border);border-radius:20px;padding:36px;text-align:center;max-width:760px;margin:0 auto}
-.download-box h2{margin-bottom:12px}
-.download-details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 24px;margin:28px 0 24px;text-align:left}
-.download-details div{font-size:14px;color:var(--ink2);line-height:1.5}
-.download-details b{display:block;color:var(--ink);font-size:14px}
-.install-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:32px}
-.install-card h3{margin-bottom:8px}
-.install-card p{color:var(--ink2);font-size:15px;line-height:1.65;margin:0 0 16px}
-.install-shots{display:flex;gap:10px;justify-content:flex-start}
-.install-shots img{flex:0 0 calc(50% - 5px);width:calc(50% - 5px);border-radius:14px;border:1px solid var(--border);display:block}
-.install-shots img:only-child{flex:0 0 50%;width:50%}
-.safety{border:1px solid rgba(244,185,54,.45);border-radius:16px;padding:20px 22px;margin-top:32px}
-.safety h3{margin-bottom:6px}
-.safety p{color:var(--ink2);font-size:15px;line-height:1.65;margin:0}
-.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:32px}
-.faq-list{max-width:760px;margin-top:28px}
-.faq-list details{border-top:1px solid var(--border);padding:18px 0}
+.phone{background:var(--phone);border:1px solid var(--border);border-radius:38px;padding:14px;max-width:340px;margin:0 auto}
+.phone img{border-radius:28px;display:block;width:100%}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.feature-img{width:100%;height:360px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block;margin-bottom:18px}
+.feature p,.step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:0}
+.step-num{font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--glow);margin:0 0 12px}
+.step img{width:100%;height:340px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block;margin-bottom:18px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.gallery img{width:100%;height:380px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block}
+.download{text-align:center}
+.download .btn{margin-top:8px}
+.download-info{color:var(--ink2);font-size:15px;margin:22px 0 0}
+.download-note{color:var(--ink2);font-size:14px;margin:10px 0 0}
+.safety{color:var(--ink2);font-size:14px;line-height:1.65;max-width:640px;margin:36px auto 0;text-align:center}
+.faq-list{max-width:720px;margin:0 auto}
+.faq-list details{border-top:1px solid var(--border);padding:20px 0}
 .faq-list details:last-child{border-bottom:1px solid var(--border)}
-.faq-list summary{cursor:pointer;font-weight:700;font-size:17px;line-height:1.4;list-style-position:outside}
+.faq-list summary{cursor:pointer;font-weight:700;font-size:17px;line-height:1.4}
 .faq-list summary::marker{color:var(--glow)}
-.faq-list p{color:var(--ink2);font-size:15px;line-height:1.65;margin:12px 0 0}
-.final-cta{text-align:center}
-.final-cta .lede{margin:0 auto}
-.final-cta .btn{margin-top:26px}
-.final-note{color:var(--ink2);font-size:14px;margin:18px 0 0}
-footer{border-top:1px solid var(--border);padding:48px 0 32px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
-.footer-grid p{color:var(--ink2);font-size:14px;line-height:1.65;max-width:340px}
-.footer-grid h3{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
-.footer-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.footer-grid li{font-size:15px}
-.footer-grid li span{color:var(--ink2);font-size:14px}
-.footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--ink2);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.faq-list p{color:var(--ink2);font-size:15px;line-height:1.65;margin:10px 0 0}
+footer{border-top:1px solid var(--border);padding:48px 0 36px;text-align:center}
+footer .brand{justify-content:center}
+.footer-tag{font-size:20px;font-weight:800;margin:18px 0 0}
+.footer-tag em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--amber)}
+.insta{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;margin-top:22px;color:var(--ink)}
+.insta:hover{border-color:var(--glow);text-decoration:none}
+.insta svg{width:22px;height:22px}
+.copyright{color:var(--ink2);font-size:14px;margin:22px 0 0}
 @media(max-width:900px){
-.hero-grid{grid-template-columns:1fr;gap:36px}
-.feature-grid,.steps-grid,.showcase-grid{grid-template-columns:repeat(2,1fr)}
-.trust-grid{grid-template-columns:repeat(2,1fr)}
-.download-details{grid-template-columns:repeat(2,1fr)}
+.hero-grid{grid-template-columns:1fr;gap:40px}
+.grid3,.gallery{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
 .wrap,.nav-inner{padding-left:16px;padding-right:16px}
-section{padding:52px 0}
-.hero{padding:40px 0 52px}
+section{padding:64px 0}
+.hero{padding:48px 0 64px}
 .nav-inner{flex-wrap:wrap;gap:10px}
 .nav-links{width:100%;justify-content:space-between;gap:14px}
 .nav-links .btn-nav{flex:1;text-align:center}
-.hero-ctas .btn{width:100%}
-.phone{max-width:280px}
-.problem-grid,.feature-grid,.steps-grid,.showcase-grid,.install-grid,.trust-grid{grid-template-columns:1fr}
-.download-details{grid-template-columns:1fr 1fr}
-.download-box{padding:28px 20px}
-.feature-img{height:320px}
-.step-card img{height:260px}
-.showcase-img,.showcase-placeholder{height:420px}
-.footer-grid{grid-template-columns:1fr}
+.hero-cta .btn{width:100%}
+.phone{max-width:300px}
+.grid3,.gallery{grid-template-columns:1fr}
+.feature-img{height:380px}
+.step img{height:360px}
+.gallery img{height:420px}
 }
 </style>
 </head>
@@ -156,206 +126,94 @@ section{padding:52px 0}
 <div>
 <p class="eyebrow">Your ideas, never forgotten</p>
 <h1>Save the <em>Idea</em>.<br>Come Back to It Later.</h1>
-<p class="lede">Found an interesting Reel, video, post, or link? Save it to Little Later, organize it into folders, and set a reminder to revisit it when you&rsquo;re ready.</p>
-<div class="hero-ctas">
-<a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a>
-<a class="btn btn-secondary" href="#how-it-works">See How It Works</a>
-</div>
-<p class="hero-note">Android APK &middot; Account sign-in optional</p>
+<p class="hero-sub">Save Reels, videos, links, and ideas. Organize them and set reminders to revisit them.</p>
+<div class="hero-cta"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a></div>
+<p class="hero-note">Android App &middot; Account Sign-in Optional</p>
 </div>
 <div>
 <div class="phone"><img src="images/home.jpg" alt="Little Later home screen showing saved ideas and folders" width="480" height="1040"></div>
-<p class="phone-caption">The Little Later home screen, with your saved ideas in one place.</p>
 </div>
 </div>
 </header>
 
-<section id="problem" aria-labelledby="problem-heading">
-<div class="wrap">
-<h2 id="problem-heading">You save it. But do you ever find it again?</h2>
-<p class="lede">Interesting videos, useful posts, recipes, tutorials, and creative ideas appear every day. You save them with the intention of coming back later. But eventually, they get lost in a sea of saved content. Little Later helps you keep those ideas organized and reminds you to revisit them.</p>
-<div class="problem-grid">
-<div><h3>Saved, then buried</h3><p>You tap save, then never scroll back far enough to find it again.</p></div>
-<div><h3>No place for it</h3><p>Reels, recipes, tutorials, and ideas all pile up in one long saved list.</p></div>
-<div><h3>No nudge to return</h3><p>Without a reminder, &ldquo;later&rdquo; quietly becomes never.</p></div>
-</div>
-</div>
-</section>
-
 <section id="features" aria-labelledby="features-heading">
 <div class="wrap">
-<h2 id="features-heading">A little more organized. A lot less forgotten.</h2>
-<p class="lede">Everything you need to save interesting things and come back to them at the right time.</p>
-<div class="feature-grid">
-<div class="feature">
-<img class="feature-img" src="images/apps.jpg" alt="Phone sharing options with the Little Later app selected" width="480" height="1040" loading="lazy" decoding="async">
-<h3>Save Anything</h3>
-<p><b style="color:var(--ink)">Don&rsquo;t let good finds disappear.</b><br>Save interesting links, Reels, Shorts, videos, Pinterest ideas, and other content using your phone&rsquo;s sharing options.</p>
-</div>
-<div class="feature">
-<img class="feature-img" src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async">
-<h3>Organize Your Finds</h3>
-<p><b style="color:var(--ink)">Everything has its place.</b><br>Keep your saved content organized in folders so you can find the things that matter without endlessly scrolling.</p>
-</div>
-<div class="feature">
-<img class="feature-img" src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async">
-<h3>Set a Reminder</h3>
-<p><b style="color:var(--ink)">Remember to come back.</b><br>Choose when you want to revisit something. Set a reminder and let Little Later help you remember.</p>
-</div>
+<h2 id="features-heading">Everything worth saving. One place.</h2>
+<div class="grid3">
+<div class="feature"><img class="feature-img" src="images/apps.jpg" alt="Choosing Little Later from phone sharing options" width="480" height="1040" loading="lazy" decoding="async"><h3>Save Anything</h3><p>Reels, videos, links, and ideas.</p></div>
+<div class="feature"><img class="feature-img" src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3><p>Keep everything in folders.</p></div>
+<div class="feature"><img class="feature-img" src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><h3>Remember Later</h3><p>Set reminders to revisit your saves.</p></div>
 </div>
 </div>
 </section>
 
 <section id="how-it-works" aria-labelledby="how-heading">
 <div class="wrap">
-<h2 id="how-heading">From found to remembered in a few taps.</h2>
-<p class="lede">Saving something for later should be simple.</p>
-<div class="steps-grid">
-<div class="step-card"><p class="step-num">Step 1</p><img src="images/reel.jpg" alt="A Reel you want to save" width="480" height="1040" loading="lazy" decoding="async"><h3>Find Something Interesting</h3><p>Find a Reel, Short, video, post, or link you want to revisit.</p></div>
-<div class="step-card"><p class="step-num">Step 2</p><img src="images/share.jpg" alt="Sharing menu for a Reel" width="480" height="1040" loading="lazy" decoding="async"><h3>Tap Share</h3><p>Open the content&rsquo;s sharing menu.</p></div>
-<div class="step-card"><p class="step-num">Step 3</p><img src="images/apps.jpg" alt="Choosing Little Later from the sharing options" width="480" height="1040" loading="lazy" decoding="async"><h3>Choose Little Later</h3><p>Select Little Later from the available sharing options.</p></div>
-<div class="step-card"><p class="step-num">Step 4</p><img src="images/choose-folder.jpg" alt="Choosing a folder for a saved item" width="480" height="1040" loading="lazy" decoding="async"><h3>Pick a Folder</h3><p>Choose where you want to organize your saved content.</p></div>
-<div class="step-card"><p class="step-num">Step 5</p><img src="images/choose-time.jpg" alt="Choosing when to be reminded" width="480" height="1040" loading="lazy" decoding="async"><h3>Set a Reminder</h3><p>Choose Today, Tomorrow, This Weekend, or a custom date and time, if supported by the current app version.</p></div>
-<div class="step-card"><p class="step-num">Step 6</p><img src="images/reminder.jpg" alt="A Little Later reminder for a saved Reel" width="480" height="1040" loading="lazy" decoding="async"><h3>Come Back Later</h3><p>Your saved item is organized and ready for you to revisit.</p></div>
+<h2 id="how-heading">Find it. Save it. Revisit it.</h2>
+<div class="grid3">
+<div class="step"><p class="step-num">01</p><img src="images/reel.jpg" alt="A Reel worth saving" width="480" height="1040" loading="lazy" decoding="async"><h3>Find</h3><p>Discover something worth saving.</p></div>
+<div class="step"><p class="step-num">02</p><img src="images/apps.jpg" alt="Sharing a Reel with Little Later" width="480" height="1040" loading="lazy" decoding="async"><h3>Save</h3><p>Share it with Little Later.</p></div>
+<div class="step"><p class="step-num">03</p><img src="images/reminder.jpg" alt="A Little Later reminder for a saved Reel" width="480" height="1040" loading="lazy" decoding="async"><h3>Revisit</h3><p>Come back when the time is right.</p></div>
 </div>
 </div>
 </section>
 
 <section id="showcase" aria-labelledby="showcase-heading">
 <div class="wrap">
-<h2 id="showcase-heading">Meet your new place for things worth remembering.</h2>
-<p class="lede">A simple space for all the things you find interesting and want to revisit.</p>
-<p class="showcase-note">Screenshots below are from the current app. Screens marked &ldquo;coming soon&rdquo; are not yet available, and no placeholder artwork is used in their place.</p>
-<div class="showcase-grid">
-<figure><img class="showcase-img" src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"><figcaption>Home / Today</figcaption></figure>
-<figure><div class="showcase-placeholder"><div><b>Saved content</b>Screenshot coming soon</div></div><figcaption>Saved content</figcaption></figure>
-<figure><img class="showcase-img" src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><figcaption>Folders</figcaption></figure>
-<figure><div class="showcase-placeholder"><div><b>Add Link</b>Screenshot coming soon</div></div><figcaption>Add Link</figcaption></figure>
-<figure><img class="showcase-img" src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><figcaption>Set Reminder</figcaption></figure>
-<figure><div class="showcase-placeholder"><div><b>Saved Item Detail</b>Screenshot coming soon</div></div><figcaption>Saved Item Detail</figcaption></figure>
+<h2 id="showcase-heading">Made for all the things you want to remember.</h2>
+<div class="gallery">
+<img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async">
+<img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async">
+<img src="images/choose-folder.jpg" alt="Choosing a folder for a saved item" width="480" height="1040" loading="lazy" decoding="async">
+<img src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async">
+<img src="images/reminder.jpg" alt="A Little Later reminder" width="480" height="1040" loading="lazy" decoding="async">
+<img src="images/welcome.jpg" alt="Little Later welcome screen" width="480" height="1040" loading="lazy" decoding="async">
 </div>
 </div>
 </section>
 
 <section id="download" aria-labelledby="download-heading">
-<div class="wrap">
-<div class="download-box">
-<h2 id="download-heading">Ready to save something for later?</h2>
-<p class="lede" style="margin:0 auto">Get Little Later on Android and start organizing the things you don&rsquo;t want to forget.</p>
-<p style="margin:26px 0 0"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download Little Later for Android</a></p>
-<div class="download-details">
-<div><b>Platform</b>Android</div>
-<div><b>Version</b>1.0.0</div>
-<div><b>File size</b>6.4 MB</div>
-<div><b>Distribution</b>Official GitHub release</div>
-<div><b>Account</b>Sign-in optional</div>
-<div><b>Google Play</b>Planned</div>
-</div>
-<p style="margin:0"><a href="https://github.com/Harsh-alt-max/little-later/releases/tag/v1.0.0">View release on GitHub</a></p>
-</div>
+<div class="wrap download">
+<h2 id="download-heading">Your next great find deserves a Little Later.</h2>
+<a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a>
+<p class="download-info">Android APK &middot; Version 1.0.0 &middot; 6.4 MB</p>
+<p class="download-note">Google Play release planned.</p>
 </div>
 </section>
 
 <section id="install" aria-labelledby="install-heading">
 <div class="wrap">
-<h2 id="install-heading">Installing Little Later is simple.</h2>
-<p class="lede">Little Later is currently available through an Android APK download from our official GitHub release. Follow these steps to install it.</p>
-<div class="install-grid">
-<div class="install-card">
-<div class="install-shots"><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><img src="images/download-warning.jpg" alt="Chrome file download warning on Android" width="480" height="1067" loading="lazy" decoding="async"></div>
-<h3>Step 1 — Download</h3>
-<p>Tap the Download for Android button and wait for the APK file to finish downloading. If Chrome shows a file warning, read it carefully before continuing.</p>
+<h2 id="install-heading">Up and running in a few steps.</h2>
+<div class="grid3">
+<div class="step"><p class="step-num">01</p><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>Download</h3><p>Download the Android APK.</p></div>
+<div class="step"><p class="step-num">02</p><img src="images/download-allow.jpg" alt="Android setting to allow installation from this source" width="480" height="1067" loading="lazy" decoding="async"><h3>Install</h3><p>Allow installation from your browser if Android asks.</p></div>
+<div class="step"><p class="step-num">03</p><img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Start Saving</h3><p>Open Little Later and save your first find.</p></div>
 </div>
-<div class="install-card">
-<div class="install-shots"><img src="images/download-settings.jpg" alt="Android unknown apps permission dialog with Settings button" width="480" height="1067" loading="lazy" decoding="async"><img src="images/download-allow.jpg" alt="Android setting to allow installation from this source" width="480" height="1067" loading="lazy" decoding="async"></div>
-<h3>Step 2 — Allow installation if Android asks</h3>
-<p>Android may ask you to allow your browser or file manager to install apps from that source. If you choose to proceed, review the permission request and enable the relevant setting only for the source you are using.</p>
-</div>
-<div class="install-card">
-<div class="install-shots"><img src="images/download-install.jpg" alt="Android install prompt for Little Later" width="480" height="1067" loading="lazy" decoding="async"></div>
-<h3>Step 3 — Install</h3>
-<p>Open the downloaded APK and follow Android&rsquo;s installation instructions.</p>
-</div>
-<div class="install-card">
-<div class="install-shots"><img src="images/home.jpg" alt="Little Later home screen after opening the app" width="480" height="1040" loading="lazy" decoding="async"></div>
-<h3>Step 4 — Open Little Later</h3>
-<p>Once installation is complete, open the app and start saving your favourite finds.</p>
-</div>
-</div>
-<div class="safety">
-<h3>A note on security warnings</h3>
-<p>Android may show an installation notice when an app is installed outside Google Play. A request to allow installation from an unknown source is not the same as a warning that an app may be harmful. If Android or Play Protect displays a harmful-app warning, do not automatically bypass it. Read the warning carefully and contact us if you need assistance.</p>
-</div>
-</div>
-</section>
-
-<section id="trust" aria-labelledby="trust-heading">
-<div class="wrap">
-<h2 id="trust-heading">Know what you&rsquo;re downloading.</h2>
-<p class="lede">We want your experience with Little Later to be simple and transparent, starting with the download.</p>
-<div class="trust-grid">
-<div class="trust-item"><h3>Android App</h3><p>Little Later is currently available for Android.</p></div>
-<div class="trust-item"><h3>Optional Account</h3><p>Signing in is optional.</p></div>
-<div class="trust-item"><h3>Official Download</h3><p>Download the Android APK through our official website&rsquo;s GitHub release link.</p></div>
-<div class="trust-item"><h3>Google Play</h3><p>A Google Play release is planned.</p></div>
-</div>
-<p style="margin:32px 0 0;color:var(--ink2);font-size:15px;line-height:1.65">Links: <a href="https://github.com/Harsh-alt-max/little-later/releases/tag/v1.0.0">GitHub Release</a> &middot; Contact and support via <a href="https://www.instagram.com/littlelater_/">Instagram @littlelater_</a>. A Privacy Policy is not yet published, so it is not linked here yet.</p>
+<p class="safety">Installing outside Google Play may require an Android installation permission. If Play Protect displays a harmful-app warning, do not bypass it automatically.</p>
 </div>
 </section>
 
 <section id="faq" aria-labelledby="faq-heading">
 <div class="wrap">
-<h2 id="faq-heading">A few things you might want to know.</h2>
+<h2 id="faq-heading">Frequently Asked Questions</h2>
 <div class="faq-list">
-<details><summary>What is Little Later?</summary><p>Little Later helps you save interesting links, videos, and ideas, organize them into folders, and set reminders to revisit them.</p></details>
-<details><summary>Is Little Later available on Android?</summary><p>Yes. Little Later is currently available as an Android APK download through our official website.</p></details>
-<details><summary>Is Little Later available on Google Play?</summary><p>Not yet. A Google Play release is planned.</p></details>
-<details><summary>Do I need to create an account?</summary><p>No. Account sign-in is optional.</p></details>
-<details><summary>How do I save a Reel or video?</summary><p>Open the content, tap Share, choose Little Later, and follow the in-app steps to save it.</p></details>
-<details><summary>Why does Android ask for permission to install the app?</summary><p>Android may require permission to install APK files from a source outside Google Play. You may need to allow installation from the browser or file manager you used.</p></details>
-<details><summary>What should I do if I see a security warning?</summary><p>Read the warning carefully. A normal installation-permission request is different from a harmful-app warning. If Android or Play Protect identifies a potential threat, do not bypass the warning automatically. Contact us for assistance.</p></details>
-<details><summary>Is my data stored on my device?</summary><p>We are currently verifying the app&rsquo;s storage and data-handling details. An answer to this question will not be published until the actual implementation has been reviewed.</p></details>
+<details><summary>Is Little Later available on Android?</summary><p>Yes, Little Later is currently available as an Android APK download.</p></details>
+<details><summary>Do I need an account?</summary><p>No, account sign-in is optional.</p></details>
+<details><summary>Is it available on Google Play?</summary><p>Not yet, a Google Play release is planned.</p></details>
+<details><summary>Why does Android ask for installation permission?</summary><p>Android may require permission to install APKs from outside Google Play.</p></details>
 </div>
-</div>
-</section>
-
-<section aria-labelledby="cta-heading">
-<div class="wrap final-cta">
-<h2 id="cta-heading">The things you love finding deserve to be found again.</h2>
-<p class="lede">Save the interesting things. Organize your ideas. Come back when the time is right.</p>
-<a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a>
-<p class="final-note">Little Later &middot; Android APK &middot; Google Play release planned</p>
 </div>
 </section>
 </main>
 
 <footer>
 <div class="wrap">
-<div class="footer-grid">
-<div>
 <a class="brand" href="#top"><img src="images/mascot.png" alt="Little Later mascot" width="40" height="40"><span>Little Later</span></a>
-<p>A simple place to save interesting things, organize your ideas, and remember to revisit them.</p>
-</div>
-<div>
-<h3>Navigation</h3>
-<ul>
-<li><a href="#features">Features</a></li>
-<li><a href="#how-it-works">How It Works</a></li>
-<li><a href="#faq">FAQ</a></li>
-<li><a href="#download">Download</a></li>
-<li><a href="https://github.com/Harsh-alt-max/little-later">GitHub</a></li>
-</ul>
-</div>
-<div>
-<h3>Support</h3>
-<ul>
-<li><a href="https://www.instagram.com/littlelater_/">Contact / Support via Instagram</a></li>
-<li><span>Privacy Policy — not yet published</span></li>
-<li><a href="https://www.instagram.com/littlelater_/">Instagram @littlelater_</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom"><span>&copy; 2026 Little Later. All rights reserved.</span><span>Android APK &middot; Google Play release planned</span></div>
+<p class="footer-tag">Save the <em>Idea</em>. Come Back to It Later.</p>
+<a class="insta" href="https://www.instagram.com/littlelater_/" aria-label="Little Later on Instagram">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
+</a>
+<p class="copyright">Copyright &copy; 2026 Little Later.</p>
 </div>
 </footer>
 </body>
