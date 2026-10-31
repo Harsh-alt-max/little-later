@@ -66,8 +66,6 @@ h3{font-size:19px;line-height:1.35;margin:0 0 6px;font-weight:700}
 .feature p,.step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:0}
 .step-num{font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--glow);margin:0 0 12px}
 .step img{width:100%;height:340px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block;margin-bottom:18px}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.gallery img{width:100%;height:380px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block}
 .download{text-align:center}
 .download .btn{margin-top:8px}
 .download-info{color:var(--ink2);font-size:15px;margin:22px 0 0}
@@ -89,7 +87,7 @@ footer .brand{justify-content:center}
 .copyright{color:var(--ink2);font-size:14px;margin:22px 0 0}
 @media(max-width:900px){
 .hero-grid{grid-template-columns:1fr;gap:40px}
-.grid3,.gallery{grid-template-columns:repeat(2,1fr)}
+.grid3{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
 .wrap,.nav-inner{padding-left:16px;padding-right:16px}
@@ -100,10 +98,9 @@ section{padding:64px 0}
 .nav-links .btn-nav{flex:1;text-align:center}
 .hero-cta .btn{width:100%}
 .phone{max-width:300px}
-.grid3,.gallery{grid-template-columns:1fr}
+.grid3{grid-template-columns:1fr}
 .feature-img{height:380px}
 .step img{height:360px}
-.gallery img{height:420px}
 }
 </style>
 </head>
@@ -158,19 +155,6 @@ section{padding:64px 0}
 </div>
 </section>
 
-<section id="showcase" aria-labelledby="showcase-heading">
-<div class="wrap">
-<h2 id="showcase-heading">Made for all the things you want to remember.</h2>
-<div class="gallery">
-<img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async">
-<img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async">
-<img src="images/choose-folder.jpg" alt="Choosing a folder for a saved item" width="480" height="1040" loading="lazy" decoding="async">
-<img src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async">
-<img src="images/reminder.jpg" alt="A Little Later reminder" width="480" height="1040" loading="lazy" decoding="async">
-<img src="images/welcome.jpg" alt="Little Later welcome screen" width="480" height="1040" loading="lazy" decoding="async">
-</div>
-</div>
-</section>
 
 <section id="download" aria-labelledby="download-heading">
 <div class="wrap download">
