@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Little Later — Save Ideas, Organize Links &amp; Remember Them Later</title>
-<meta name="description" content="Save Reels, Shorts, videos, Pinterest ideas, and links with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
+<meta name="description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
 <meta property="og:title" content="Little Later — Save Ideas, Organize Links &amp; Remember Them Later">
-<meta property="og:description" content="Save Reels, Shorts, videos, Pinterest ideas, and links with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
+<meta property="og:description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harsh-alt-max.github.io/little-later/">
 <meta property="og:image" content="https://harsh-alt-max.github.io/little-later/images/mascot.png">
@@ -15,8 +15,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
+/* Mobile-first: base styles are for a ~390px phone. Wider screens only widen the layout. */
 :root{
---bg:#08111E;--phone:#0B1626;--card:#132235;--elevated:#17273B;
+--bg:#08111E;--phone:#0B1626;--elevated:#17273B;
 --ink:#F4F7FB;--ink2:#9BB0C9;--blue:#4282DB;--deep:#2E64B0;--glow:#8EBBFF;--amber:#F4B936;
 --border:rgba(172,196,228,.16);
 --sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;
@@ -24,7 +25,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.55;overflow-x:hidden}
 img{max-width:100%;height:auto}
 figure{margin:0}
 a{color:var(--glow);text-decoration:none}
@@ -32,126 +33,131 @@ a:hover{text-decoration:underline}
 :focus-visible{outline:2px solid var(--glow);outline-offset:3px;border-radius:4px}
 .skip{position:absolute;left:-9999px;top:0;background:var(--blue);color:#fff;padding:10px 16px;z-index:50}
 .skip:focus{left:12px;top:12px;text-decoration:none}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--border)}
-.nav-inner{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;color:var(--ink);text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+/* Compact header: logo + Download only, so the download action is always one tap away. */
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--border)}
+.header-inner{max-width:720px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--ink);text-decoration:none}
 .brand:hover{text-decoration:none}
-.brand img{width:40px;height:40px;border-radius:50%}
-.nav-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.nav-links a{color:var(--ink2);font-weight:600;font-size:15px}
-.nav-links a:hover{color:var(--ink);text-decoration:none}
-.btn{display:inline-block;border:0;cursor:pointer;border-radius:999px;padding:14px 28px;font:700 15px var(--sans);text-align:center;text-decoration:none}
+.brand img{width:36px;height:36px;border-radius:50%}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;cursor:pointer;border-radius:999px;padding:15px 28px;min-height:48px;font:700 16px var(--sans);text-align:center;text-decoration:none}
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-primary:hover{background:var(--deep)}
-.btn-nav{padding:10px 20px;font-size:14px;position:relative;overflow:hidden;isolation:isolate}
-.btn-nav::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-180%) skewX(-20deg);animation:navshine 3s ease-in-out infinite;pointer-events:none}
+.btn-header{padding:11px 20px;min-height:44px;font-size:14px;position:relative;overflow:hidden;isolation:isolate}
+.btn-header::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-180%) skewX(-20deg);animation:navshine 3s ease-in-out infinite;pointer-events:none}
 @keyframes navshine{0%{transform:translateX(-180%) skewX(-20deg)}25%{transform:translateX(320%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}
-.capsule{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--elevated);color:var(--ink);padding:12px 20px;border-radius:999px;font:700 14px var(--sans);text-decoration:none}
-.capsule:hover{border-color:var(--glow);text-decoration:none}
-.btn{transition:background .2s ease,transform .2s ease}
-.btn:hover{transform:translateY(-1px)}
-.feature,.step{transition:transform .3s ease}
-.feature:hover,.step:hover{transform:translateY(-3px)}
-.phone{animation:floaty 6s ease-in-out infinite}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@media(prefers-reduced-motion:reduce){.btn-nav::after,.phone{animation:none}.btn,.feature,.step{transition:none}}
 main{display:block}
-section{padding:88px 0;scroll-margin-top:88px}
+section{padding:44px 0;scroll-margin-top:72px}
 section + section{border-top:1px solid var(--border)}
-.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--glow);margin:0 0 14px}
-h1{font-size:clamp(38px,5.2vw,54px);line-height:1.08;letter-spacing:-.03em;margin:0 0 18px;font-weight:800}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--glow);margin:0 0 12px}
+h1{font-size:34px;line-height:1.1;letter-spacing:-.02em;margin:0 0 14px;font-weight:800}
 h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--amber)}
-h2{font-size:clamp(28px,3.6vw,36px);line-height:1.2;letter-spacing:-.02em;margin:0 0 36px;font-weight:800;text-align:center}
-h3{font-size:19px;line-height:1.35;margin:0 0 6px;font-weight:700}
-.hero{padding:72px 0 88px}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero-sub{font-size:18px;line-height:1.65;color:var(--ink2);margin:0}
-.hero-cta{margin-top:28px}
-.hero-note{color:var(--ink2);font-size:14px;margin:18px 0 0}
-.phone{background:var(--phone);border:1px solid var(--border);border-radius:38px;padding:14px;max-width:340px;margin:0 auto}
-.phone img{border-radius:28px;display:block;width:100%}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.feature-img{width:100%;height:360px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block;margin-bottom:18px}
-.feature p,.step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:0}
-.step-num{font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--glow);margin:0 0 12px}
-.step img{width:100%;height:340px;object-fit:cover;object-position:top;border-radius:18px;border:1px solid var(--border);display:block;margin-bottom:18px}
-.how-steps .step img{object-position:bottom}
+h2{font-size:26px;line-height:1.2;letter-spacing:-.02em;margin:0 0 24px;font-weight:800}
+h3{font-size:16px;line-height:1.35;margin:0;font-weight:700}
+.hero{padding:28px 0 40px;text-align:center}
+.hero .eyebrow{text-align:center}
+.hero-sub{font-size:16px;line-height:1.6;color:var(--ink2);margin:0}
+.hero-cta{margin-top:22px}
+.hero-cta .btn{width:100%;max-width:340px}
+.hero-note{color:var(--ink2);font-size:13px;margin:14px 0 0}
+.phone{background:var(--phone);border:1px solid var(--border);border-radius:34px;padding:10px;max-width:280px;margin:28px auto 0;animation:floaty 6s ease-in-out infinite}
+.phone img{width:100%;height:400px;object-fit:cover;object-position:top;border-radius:26px;display:block}
+/* Swipe strips: a peek of the next card signals swiping, with no extra UI chrome. */
+.strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 20px 14px;margin:0 -20px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip > *{flex:0 0 78%;max-width:300px;scroll-snap-align:start}
+.feature img{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
+.feature h3{text-align:left}
+.preview img{width:100%;height:440px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.how-grid .step-num{font-size:12px;letter-spacing:.1em;font-weight:800;color:var(--glow);margin:0 0 8px}
+.how-grid img{width:100%;height:170px;object-fit:cover;object-position:bottom;border-radius:14px;border:1px solid var(--border);display:block;margin-bottom:10px}
+.how-grid h3{font-size:15px}
 .download{text-align:center}
-.download .btn{margin-top:8px}
-.download-info{color:var(--ink2);font-size:15px;margin:22px 0 0}
-.download-note{color:var(--ink2);font-size:14px;margin:10px 0 0}
-.safety{color:var(--ink2);font-size:14px;line-height:1.65;max-width:640px;margin:36px auto 0;text-align:center}
-.faq-list{max-width:720px;margin:0 auto}
-.faq-list details{border-top:1px solid var(--border);padding:20px 0}
-.faq-list details:last-child{border-bottom:1px solid var(--border)}
-.faq-list summary{cursor:pointer;font-weight:700;font-size:17px;line-height:1.4}
+.download .btn{width:100%;max-width:340px;margin-top:4px}
+.download-info{color:var(--ink2);font-size:14px;margin:18px 0 0}
+.download-note{color:var(--ink2);font-size:13px;margin:8px 0 0}
+.faq-list{max-width:640px;margin:0 auto}
+.faq-list details{border-top:1px solid var(--border);padding:18px 0}
+.faq-list details:last-of-type{border-bottom:1px solid var(--border)}
+.faq-list summary{cursor:pointer;font-weight:700;font-size:16px;line-height:1.4}
 .faq-list summary::marker{color:var(--glow)}
-.faq-list p{color:var(--ink2);font-size:15px;line-height:1.65;margin:10px 0 0}
-footer{border-top:1px solid var(--border);padding:48px 0 36px;text-align:center}
+.faq-list p{color:var(--ink2);font-size:15px;line-height:1.6;margin:10px 0 0}
+.faq-note{color:var(--ink2);font-size:13px;line-height:1.6;max-width:640px;margin:24px auto 0;text-align:center}
+footer{border-top:1px solid var(--border);padding:36px 0 28px;text-align:center}
 footer .brand{justify-content:center}
-.footer-tag{font-size:20px;font-weight:800;margin:18px 0 0}
-.footer-tag em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--amber)}
-.insta{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;margin-top:22px;color:var(--ink)}
+.insta{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;margin-top:20px;color:var(--ink)}
 .insta:hover{border-color:var(--glow);text-decoration:none}
 .insta svg{width:22px;height:22px}
-.copyright{color:var(--ink2);font-size:14px;margin:22px 0 0}
-@media(max-width:900px){
-.hero-grid{grid-template-columns:1fr;gap:40px}
-.grid3{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:640px){
-.wrap,.nav-inner{padding-left:16px;padding-right:16px}
+.copyright{color:var(--ink2);font-size:13px;margin:18px 0 0}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.btn-header::after,.phone{animation:none}}
+/* Desktop is secondary: same short sections, just wider. Nothing is added for desktop. */
+@media(min-width:720px){
+.wrap,.header-inner{max-width:1080px}
+.header-inner{padding-left:24px;padding-right:24px}
+.wrap{padding-left:24px;padding-right:24px}
 section{padding:64px 0}
-.hero{padding:48px 0 64px}
-.nav-inner{flex-wrap:wrap;gap:10px}
-.nav-links{width:100%;justify-content:space-between;gap:14px}
-.nav-links .btn-nav{flex:1;text-align:center}
-.hero-cta .btn,.hero-cta .capsule{width:100%}
-.phone{max-width:300px}
-.grid3{grid-template-columns:1fr}
-.feature-img{height:380px}
-.step img{height:360px}
+.hero{text-align:left}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-grid .eyebrow{text-align:left}
+.hero-cta .btn{width:auto}
+.hero-note{text-align:left}
+.phone{max-width:320px;margin:0 auto}
+.phone img{height:auto}
+.strip{overflow:visible;padding:2px 0 0;margin:0}
+.strip > *{flex:1 1 0;max-width:none}
+.feature img{height:300px}
+.preview img{height:520px}
+.how-grid img{height:240px}
+.how-grid h3{font-size:17px}
+.download .btn{width:auto}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav aria-label="Main navigation">
-<div class="nav-inner">
-<a class="brand" href="#top"><img src="images/mascot.png" alt="Little Later mascot" width="40" height="40"><span>Little Later</span></a>
-<div class="nav-links">
-<a href="#features">Features</a>
-<a href="#how-it-works">How It Works</a>
-<a href="#faq">FAQ</a>
-<a class="btn btn-primary btn-nav" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download</a>
+<header>
+<div class="header-inner">
+<a class="brand" href="#top"><img src="images/mascot.png" alt="Little Later mascot" width="36" height="36"><span>Little Later</span></a>
+<a class="btn btn-primary btn-header" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download</a>
 </div>
-</div>
-</nav>
+</header>
 <main id="main">
-<header class="hero" id="top">
-<div class="wrap hero-grid">
+<section class="hero" id="top" aria-labelledby="hero-heading">
+<div class="wrap">
+<div class="hero-grid">
 <div>
 <p class="eyebrow">Your ideas, never forgotten</p>
-<h1>Save the <em>Idea</em>.<br>Come Back to It Later.</h1>
-<p class="hero-sub">Save Reels, videos, links, and ideas. Organize them and set reminders to revisit them.</p>
-<div class="hero-cta" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a><a class="capsule" href="#install">How to download</a></div>
-<p class="hero-note">Android App &middot; Account Sign-in Optional</p>
+<h1 id="hero-heading">Save the <em>Idea</em>.<br>Come Back to It Later.</h1>
+<p class="hero-sub">Save links, videos, and ideas. Revisit them when you&rsquo;re ready.</p>
+<div class="hero-cta"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a></div>
+<p class="hero-note">Android App &middot; Sign-in Optional</p>
 </div>
-<div>
 <div class="phone"><img src="images/home.jpg" alt="Little Later home screen showing saved ideas and folders" width="480" height="1040"></div>
 </div>
 </div>
-</header>
+</section>
 
 <section id="features" aria-labelledby="features-heading">
 <div class="wrap">
 <h2 id="features-heading">Everything worth saving. One place.</h2>
-<div class="grid3">
-<div class="feature"><img class="feature-img" src="images/apps.jpg" alt="Choosing Little Later from phone sharing options" width="480" height="1040" loading="lazy" decoding="async"><h3>Save Anything</h3><p>Reels, videos, links, and ideas.</p></div>
-<div class="feature"><img class="feature-img" src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3><p>Keep everything in folders.</p></div>
-<div class="feature"><img class="feature-img" src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><h3>Remember Later</h3><p>Set reminders to revisit your saves.</p></div>
+<div class="strip" role="list">
+<div class="feature" role="listitem"><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1041" loading="lazy" decoding="async"><h3>Save Anything</h3></div>
+<div class="feature" role="listitem"><img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3></div>
+<div class="feature" role="listitem"><img src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><h3>Remember Later</h3></div>
+</div>
+</div>
+</section>
+
+<section id="preview" aria-labelledby="preview-heading">
+<div class="wrap">
+<h2 id="preview-heading">A little space for everything you save.</h2>
+<div class="strip" role="list">
+<div class="preview" role="listitem"><img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"></div>
+<div class="preview" role="listitem"><img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"></div>
+<div class="preview" role="listitem"><img src="images/reminder.jpg" alt="A Little Later reminder" width="480" height="1040" loading="lazy" decoding="async"></div>
 </div>
 </div>
 </section>
@@ -159,57 +165,45 @@ section{padding:64px 0}
 <section id="how-it-works" aria-labelledby="how-heading">
 <div class="wrap">
 <h2 id="how-heading">Find it. Save it. Revisit it.</h2>
-<div class="grid3 how-steps">
-<div class="step"><p class="step-num">01</p><img src="images/reel.jpg" alt="A Reel worth saving" width="480" height="1040" loading="lazy" decoding="async"><h3>Find</h3><p>Discover something worth saving.</p></div>
-<div class="step"><p class="step-num">02</p><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1040" loading="lazy" decoding="async"><h3>Save</h3><p>Share it with Little Later.</p></div>
-<div class="step"><p class="step-num">03</p><img src="images/reminder.jpg" alt="A Little Later reminder for a saved Reel" width="480" height="1040" loading="lazy" decoding="async"><h3>Revisit</h3><p>Come back when the time is right.</p></div>
+<div class="how-grid">
+<div class="step"><p class="step-num">01</p><img src="images/reel.jpg" alt="A Reel worth saving, with the share button at the bottom" width="480" height="1040" loading="lazy" decoding="async"><h3>Find</h3></div>
+<div class="step"><p class="step-num">02</p><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1041" loading="lazy" decoding="async"><h3>Save</h3></div>
+<div class="step"><p class="step-num">03</p><img src="images/reminder.jpg" alt="A Little Later reminder with revisit options at the bottom" width="480" height="1040" loading="lazy" decoding="async"><h3>Revisit</h3></div>
 </div>
 </div>
 </section>
-
 
 <section id="download" aria-labelledby="download-heading">
 <div class="wrap download">
-<h2 id="download-heading">Your next great find deserves a Little Later.</h2>
+<h2 id="download-heading">Ready for a Little Later?</h2>
 <a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.0.0/Little-Later-1.0.0.apk">Download for Android</a>
-<p style="margin:18px 0 0"><a class="capsule" href="#install">How to download</a></p>
-<p class="download-info">Android APK &middot; Version 1.0.0 &middot; 6.4 MB</p>
+<p class="download-info">Android APK &middot; Version 1.0.0</p>
 <p class="download-note">Google Play release planned.</p>
-</div>
-</section>
-
-<section id="install" aria-labelledby="install-heading">
-<div class="wrap">
-<h2 id="install-heading">Up and running in a few steps.</h2>
-<div class="grid3">
-<div class="step"><p class="step-num">01</p><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>Download</h3><p>Download the Android APK.</p></div>
-<div class="step"><p class="step-num">02</p><img src="images/download-allow.jpg" alt="Android setting to allow installation from this source" width="480" height="1067" loading="lazy" decoding="async"><h3>Install</h3><p>Allow installation from your browser if Android asks.</p></div>
-<div class="step"><p class="step-num">03</p><img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Start Saving</h3><p>Open Little Later and save your first find.</p></div>
-</div>
-<p class="safety">Installing outside Google Play may require an Android installation permission. If Play Protect displays a harmful-app warning, do not bypass it automatically.</p>
 </div>
 </section>
 
 <section id="faq" aria-labelledby="faq-heading">
 <div class="wrap">
-<h2 id="faq-heading">Frequently Asked Questions</h2>
+<h2 id="faq-heading">FAQs</h2>
 <div class="faq-list">
-<details><summary>Is Little Later available on Android?</summary><p>Yes, Little Later is currently available as an Android APK download.</p></details>
-<details><summary>Do I need an account?</summary><p>No, account sign-in is optional.</p></details>
-<details><summary>Is it available on Google Play?</summary><p>Not yet, a Google Play release is planned.</p></details>
-<details><summary>Why does Android ask for installation permission?</summary><p>Android may require permission to install APKs from outside Google Play.</p></details>
+<details><summary>Is it available on Android?</summary><p>Yes, as an Android APK download.</p></details>
+<details><summary>Do I need an account?</summary><p>No, sign-in is optional.</p></details>
+<details><summary>Is it on Google Play?</summary><p>Not yet, a Google Play release is planned.</p></details>
+<details><summary>Why does Android ask for installation permission?</summary><p>Android may require permission to install apps downloaded outside Google Play.</p></details>
 </div>
+<p class="faq-note">Android may ask for permission to install apps downloaded outside Google Play. If Play Protect displays a harmful-app warning, do not bypass it automatically.</p>
 </div>
 </section>
 </main>
 
 <footer>
 <div class="wrap">
-<a class="brand" href="#top"><img src="images/mascot.png" alt="Little Later mascot" width="40" height="40"><span>Little Later</span></a>
-<p class="footer-tag">Save the <em>Idea</em>. Come Back to It Later.</p>
+<a class="brand" href="#top"><img src="images/mascot.png" alt="Little Later mascot" width="36" height="36"><span>Little Later</span></a>
+<div>
 <a class="insta" href="https://www.instagram.com/littlelater_/" aria-label="Little Later on Instagram">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg>
 </a>
+</div>
 <p class="copyright">Copyright &copy; 2026 Little Later.</p>
 </div>
 </footer>
