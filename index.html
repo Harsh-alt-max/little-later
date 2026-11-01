@@ -69,9 +69,11 @@ h3{font-size:16px;line-height:1.35;margin:0;font-weight:700}
 .strip::-webkit-scrollbar{display:none}
 .strip > *{flex:0 0 78%;max-width:300px;scroll-snap-align:start}
 .feature img{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
+.feature-link{color:var(--ink);text-decoration:none}
+.feature-link:hover{text-decoration:none}
 .feature h3{text-align:left}
 .how-step .step-num,.install-step .step-num{font-size:12px;letter-spacing:.1em;font-weight:800;color:var(--glow);margin:0 0 10px}
-.how-step img{width:100%;height:auto;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
+.how-step img{width:100%;aspect-ratio:480/520;object-fit:cover;object-position:bottom;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
 .how-step h3{font-size:16px}
 .install-step img{width:100%;height:300px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
 .install-step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:6px 0 0}
@@ -148,8 +150,9 @@ section{padding:64px 0}
 <h2 id="features-heading">Everything worth saving. One place.</h2>
 <div class="strip" role="list">
 <div class="feature" role="listitem"><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1041" loading="lazy" decoding="async"><h3>Save Anything</h3></div>
-<div class="feature" role="listitem"><img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3></div>
+<div class="feature" role="listitem"><a class="feature-link" href="#install"><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>How to Download</h3></a></div>
 <div class="feature" role="listitem"><img src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><h3>Remember Later</h3></div>
+<div class="feature" role="listitem"><img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3></div>
 </div>
 </div>
 </section>
