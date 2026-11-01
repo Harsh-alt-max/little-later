@@ -76,6 +76,10 @@ h3{font-size:16px;line-height:1.35;margin:0;font-weight:700}
 .how-step img{width:100%;aspect-ratio:480/520;object-fit:cover;object-position:bottom;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
 .how-step h3{font-size:16px}
 .install-step img{width:100%;height:300px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
+.install-shots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.install-shots img{width:100%;height:200px;object-fit:cover;border-radius:12px;border:1px solid var(--border);display:block;margin-bottom:0}
+.install-shots img:first-child{object-position:center}
+.install-shots img:last-child{object-position:top}
 .install-step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:6px 0 0}
 .safety{color:var(--ink2);font-size:13px;line-height:1.6;max-width:640px;margin:24px auto 0;text-align:center}
 .capsule{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--elevated);color:var(--ink);padding:12px 20px;min-height:44px;border-radius:999px;font:700 14px var(--sans);text-decoration:none}
@@ -145,18 +149,18 @@ section{padding:64px 0}
 </div>
 </section>
 
-<section id="features" aria-labelledby="features-heading">
+
+<section id="install" aria-labelledby="install-heading">
 <div class="wrap">
-<h2 id="features-heading">Everything worth saving. One place.</h2>
+<h2 id="install-heading">How to download.</h2>
 <div class="strip" role="list">
-<div class="feature" role="listitem"><img src="images/apps-circled.jpg" alt="Little Later circled in the phone app drawer" width="480" height="1041" loading="lazy" decoding="async"><h3>Save Anything</h3></div>
-<div class="feature" role="listitem"><a class="feature-link" href="#install"><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>How to Download</h3></a></div>
-<div class="feature" role="listitem"><img src="images/choose-time.jpg" alt="Little Later reminder options" width="480" height="1040" loading="lazy" decoding="async"><h3>Remember Later</h3></div>
-<div class="feature" role="listitem"><img src="images/folders.jpg" alt="Little Later folders screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Organize Your Finds</h3></div>
+<div class="install-step" role="listitem"><p class="step-num">01</p><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>Download</h3><p>Download the Android APK.</p></div>
+<div class="install-step" role="listitem"><p class="step-num">02</p><div class="install-shots"><img src="images/download-settings.jpg" alt="Chrome message asking to change the setting to install unknown apps" width="480" height="1067" loading="lazy" decoding="async"><img src="images/download-allow.jpg" alt="Android setting to allow installation from this source, turned on" width="480" height="1067" loading="lazy" decoding="async"></div><h3>Install</h3><p>Tap Settings, then turn on Allow from this source.</p></div>
+<div class="install-step" role="listitem"><p class="step-num">03</p><img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Start Saving</h3><p>Open Little Later and save your first find.</p></div>
 </div>
+<p class="safety">Installing outside Google Play may require an Android installation permission. If Play Protect displays a harmful-app warning, do not bypass it automatically.</p>
 </div>
 </section>
-
 
 <section id="how-it-works" aria-labelledby="how-heading">
 <div class="wrap">
@@ -179,17 +183,6 @@ section{padding:64px 0}
 </div>
 </section>
 
-<section id="install" aria-labelledby="install-heading">
-<div class="wrap">
-<h2 id="install-heading">Up and running in a few steps.</h2>
-<div class="strip" role="list">
-<div class="install-step" role="listitem"><p class="step-num">01</p><img src="images/download-site.jpg" alt="Little Later website with the Download button" width="480" height="1067" loading="lazy" decoding="async"><h3>Download</h3><p>Download the Android APK.</p></div>
-<div class="install-step" role="listitem"><p class="step-num">02</p><img src="images/download-allow.jpg" alt="Android setting to allow installation from this source" width="480" height="1067" loading="lazy" decoding="async"><h3>Install</h3><p>Allow installation from your browser if Android asks.</p></div>
-<div class="install-step" role="listitem"><p class="step-num">03</p><img src="images/home.jpg" alt="Little Later home screen" width="480" height="1040" loading="lazy" decoding="async"><h3>Start Saving</h3><p>Open Little Later and save your first find.</p></div>
-</div>
-<p class="safety">Installing outside Google Play may require an Android installation permission. If Play Protect displays a harmful-app warning, do not bypass it automatically.</p>
-</div>
-</section>
 
 <section id="faq" aria-labelledby="faq-heading">
 <div class="wrap">
