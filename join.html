@@ -89,8 +89,8 @@
     const downloadSiteUrl = `https://harsh-alt-max.github.io/little-later/`;
     const isAndroid = /Android/i.test(navigator.userAgent);
 
-    /* Single-tap behavior: on Android, opens Little Later if installed, or automatically redirects to downloadSiteUrl if not installed */
-    const appIntent = `intent:#Intent;action=android.intent.action.SEND;type=text/plain;package=com.littlelater.app;S.android.intent.extra.TEXT=${encodeURIComponent(joinPayloadUrl)};S.browser_fallback_url=${encodeURIComponent(downloadSiteUrl)};end`;
+    /* Includes category=android.intent.category.BROWSABLE matching our updated AndroidManifest.xml */
+    const appIntent = `intent:#Intent;action=android.intent.action.SEND;category=android.intent.category.BROWSABLE;type=text/plain;package=com.littlelater.app;S.android.intent.extra.TEXT=${encodeURIComponent(joinPayloadUrl)};S.browser_fallback_url=${encodeURIComponent(downloadSiteUrl)};end`;
 
     const btn = document.getElementById('joinCollabBtn');
     btn.href = isAndroid ? appIntent : downloadSiteUrl;
