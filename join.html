@@ -72,6 +72,7 @@
   <script>
     const params = new URLSearchParams(location.search);
     const folder = params.get('join') || params.get('folder') || '';
+    const cid = params.get('cid') || '';
     const inviter = params.get('by') || params.get('from') || '';
 
     document.getElementById('inviteHeading').textContent = inviter
@@ -85,7 +86,7 @@
       folderEl.style.display = 'none';
     }
 
-    const joinPayloadUrl = `https://harsh-alt-max.github.io/little-later/join.html?join=${encodeURIComponent(folder || 'Shared')}`;
+    const joinPayloadUrl = `https://harsh-alt-max.github.io/little-later/join.html?join=${encodeURIComponent(folder || 'Shared')}${cid ? `&cid=${encodeURIComponent(cid)}` : ''}`;
     const downloadSiteUrl = `https://harsh-alt-max.github.io/little-later/`;
     const isAndroid = /Android/i.test(navigator.userAgent);
 
