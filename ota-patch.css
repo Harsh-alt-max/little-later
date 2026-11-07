@@ -1,3 +1,364 @@
-/* Little Later OTA Live Theme & Branding Stylesheet
- * Any CSS variables or rules added here update the installed Android app live without reinstalling!
- */
+/* Little Later OTA Live Styles — Deep Black + 11% Blurry Blue Glow + v1.2 UI & Morphing Menu */
+
+/* 1. Near-Black Background (#03050A) with 10-12% Blurred Light-Blue Ambient Glow in Center */
+:root, :root[data-theme="dark"] {
+  --canvas: #03050A !important;
+  --surface: rgba(16, 25, 40, 0.78) !important;
+  --raised: rgba(22, 34, 54, 0.84) !important;
+  --subtle: rgba(18, 29, 46, 0.75) !important;
+  --ink: #F5F8FC !important;
+  --secondary: #B8C7DC !important;
+}
+:root[data-theme="dark"] html,
+:root[data-theme="dark"] body {
+  background: #03050A !important;
+}
+:root[data-theme="dark"] .device {
+  position: relative !important;
+  background:
+    radial-gradient(circle 340px at 50% 46%, rgba(115, 174, 255, 0.115) 0%, rgba(76, 138, 238, 0.055) 42%, rgba(3, 5, 10, 0) 76%),
+    #03050A !important;
+  overflow: hidden !important;
+}
+:root[data-theme="dark"] .device::before {
+  content: "";
+  position: fixed;
+  top: 46%;
+  left: 50%;
+  width: 360px;
+  height: 360px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 180, 255, 0.12) 0%, rgba(82, 148, 245, 0.05) 50%, transparent 75%);
+  filter: blur(68px);
+  pointer-events: none;
+  z-index: 0;
+}
+:root[data-theme="dark"] .appbar {
+  background: rgba(5, 9, 17, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid rgba(142, 187, 255, 0.08) !important;
+  position: relative;
+  z-index: 5;
+}
+.scroll {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 108px !important;
+}
+:root[data-theme="dark"] .idea,
+:root[data-theme="dark"] #savedList .idea,
+:root[data-theme="dark"] .recent-grid .idea,
+:root[data-theme="dark"] .todo-list-card,
+:root[data-theme="dark"] .empty,
+:root[data-theme="dark"] .collab-bar,
+:root[data-theme="dark"] .collab-composer {
+  background: rgba(15, 24, 38, 0.76) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(142, 187, 255, 0.09) !important;
+}
+
+/* 2. Collab Composer: In-Flow Chat Layout (Never Overlaps/Hovers Over Cards or Toasts) */
+.collab-composer,
+:root[data-theme="dark"] .collab-composer,
+:root[data-theme="light"] .collab-composer,
+body.kb-open #folderCollabComposer {
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  z-index: 2 !important;
+  margin: 14px 0 6px !important;
+  max-width: 100% !important;
+  box-shadow: none !important;
+  border-radius: 20px !important;
+  padding: 12px !important;
+}
+body.kb-open #folderDetail {
+  padding-bottom: 24px !important;
+}
+
+/* 3. Unified Rectangular Pill Design System (Matches "Unscheduled" Badge Everywhere — No Bloated Circles, No Glowy Text) */
+.card-pill-row {
+  margin: 11px 0 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.idea .pill,
+#savedList .idea .pill,
+.recent-grid .idea .pill,
+.reminder-opt-pill,
+:root[data-theme="dark"] .idea .pill,
+:root[data-theme="dark"] #savedList .idea .pill,
+:root[data-theme="dark"] .recent-grid .idea .pill,
+:root[data-theme="dark"] .reminder-opt-pill {
+  min-height: 27px !important;
+  height: 27px !important;
+  padding: 0 10px !important;
+  border-radius: 9px !important;
+  background: #213B5F !important;
+  color: rgba(215, 231, 255, 0.68) !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+:root[data-theme="light"] .idea .pill,
+:root[data-theme="light"] #savedList .idea .pill,
+:root[data-theme="light"] .recent-grid .idea .pill,
+:root[data-theme="light"] .reminder-opt-pill {
+  background: #E1EDFC !important;
+  color: rgba(32, 74, 135, 0.72) !important;
+}
+.reminder-opt-pill.opted-out,
+:root[data-theme="dark"] .reminder-opt-pill.opted-out {
+  background: rgba(33, 59, 95, 0.55) !important;
+  color: rgba(199, 212, 229, 0.48) !important;
+}
+.reminder-opt-pill .icon {
+  width: 12.5px !important;
+  height: 12.5px !important;
+  stroke: currentColor !important;
+  stroke-width: 1.9 !important;
+  opacity: 0.85 !important;
+  flex: none !important;
+}
+
+/* Clean spacing inside To-Do card */
+.todo-list-card .todo-add-saved {
+  margin-top: 8px !important;
+  gap: 6px !important;
+}
+.todo-list-card .todo-add-saved .input {
+  min-height: 36px !important;
+  height: 36px !important;
+  padding: 6px 10px !important;
+  font-size: 12.5px !important;
+  border-radius: 10px !important;
+}
+.todo-list-card .todo-add-saved button {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+}
+.todo-list-card .todo-add-saved button .icon {
+  width: 17px !important;
+  height: 17px !important;
+  stroke: #FFFFFF !important;
+  stroke-width: 2.2 !important;
+}
+
+/* 4. Unified SVG Plus & Arrow Icons inside "Save a little idea" (.quick-save) and Bottom Nav (#bottomnav) */
+.quick-save-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: none !important;
+}
+.quick-save-icon .icon {
+  width: 21px !important;
+  height: 21px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.25 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+.quick-save-arrow {
+  width: 32px !important;
+  height: 32px !important;
+  margin-left: auto !important;
+  display: grid !important;
+  place-items: center !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  flex: none !important;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.quick-save:active .quick-save-arrow {
+  transform: translateX(3px) !important;
+}
+.quick-save-arrow .icon {
+  width: 20px !important;
+  height: 20px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.1 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+.bottomnav .navitem.nav-add .nav-add-icon {
+  display: grid !important;
+  place-items: center !important;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease !important;
+}
+.bottomnav .navitem.nav-add .nav-add-icon .icon {
+  width: 22px !important;
+  height: 22px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.3 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+body.add-menu-open .bottomnav .navitem.nav-add .nav-add-icon .icon {
+  transform: rotate(45deg) scale(1.05) !important;
+}
+
+/* 5. Progressive 5% Ambient Blur Veil Above & Under the Bottom Navigation Bar */
+.nav-blur-veil {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(80px + 5.5dvh + var(--system-nav-inset, env(safe-area-inset-bottom, 0px)));
+  z-index: 38;
+  pointer-events: none;
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 34%, rgba(0,0,0,0.92) 68%, rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 34%, rgba(0,0,0,0.92) 68%, rgba(0,0,0,1) 100%);
+  background: linear-gradient(180deg, rgba(3, 5, 10, 0) 0%, rgba(3, 5, 10, 0.68) 48%, rgba(3, 5, 10, 0.95) 100%) !important;
+}
+:root[data-theme="light"] .nav-blur-veil {
+  background: linear-gradient(180deg, rgba(241, 246, 252, 0) 0%, rgba(241, 246, 252, 0.62) 48%, rgba(241, 246, 252, 0.92) 100%) !important;
+}
+.bottomnav.visible {
+  position: fixed !important;
+  left: 14px !important;
+  right: 14px !important;
+  bottom: calc(var(--system-nav-inset, env(safe-area-inset-bottom, 0px)) + 10px) !important;
+  z-index: 50 !important;
+  margin: 0 auto !important;
+  max-width: 430px !important;
+}
+
+/* 6. Smooth Eased Morphing Popover Overlay on Clicking '+' in Nav Bar */
+.add-choice-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 960 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  padding: 0 16px calc(var(--system-nav-inset, env(safe-area-inset-bottom, 0px)) + 92px) !important;
+  background: rgba(3, 6, 12, 0.36) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+.add-choice-backdrop.visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.add-choice-sheet {
+  width: 246px !important;
+  max-width: 82vw !important;
+  padding: 10px !important;
+  background: #101A2B !important;
+  border: 1px solid rgba(142, 187, 255, 0.16) !important;
+  border-radius: 36px !important;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.68), 0 4px 14px rgba(0, 0, 0, 0.34) !important;
+  transform-origin: 50% 100% !important;
+  transform: translateY(26px) scale(0.38, 0.24) !important;
+  opacity: 0 !important;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease !important;
+  overflow: hidden !important;
+}
+:root[data-theme="light"] .add-choice-sheet {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(40, 89, 159, 0.14) !important;
+  box-shadow: 0 20px 44px rgba(18, 36, 66, 0.18) !important;
+}
+.add-choice-backdrop.visible .add-choice-sheet {
+  transform: translateY(0) scale(1, 1) !important;
+  border-radius: 22px !important;
+  opacity: 1 !important;
+}
+.add-choice-item {
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 9px 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  color: rgba(244, 247, 251, 0.88) !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.26s ease !important;
+}
+:root[data-theme="light"] .add-choice-item {
+  color: #17263B !important;
+}
+.add-choice-backdrop.visible .add-choice-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.add-choice-backdrop.visible .add-choice-item:nth-child(1) { transition-delay: 0.04s; }
+.add-choice-backdrop.visible .add-choice-item:nth-child(2) { transition-delay: 0.07s; }
+.add-choice-backdrop.visible .add-choice-item:nth-child(3) { transition-delay: 0.10s; }
+.add-choice-backdrop.visible .add-choice-item:nth-child(4) { transition-delay: 0.13s; }
+.add-choice-item:hover,
+.add-choice-item:active,
+.add-choice-item:focus-visible {
+  background: rgba(142, 187, 255, 0.13) !important;
+  color: #FFFFFF !important;
+}
+:root[data-theme="light"] .add-choice-item:hover,
+:root[data-theme="light"] .add-choice-item:active {
+  background: rgba(40, 89, 159, 0.10) !important;
+  color: #17263B !important;
+}
+.add-choice-icon,
+:root[data-theme="dark"] .add-choice-icon,
+:root[data-theme="light"] .add-choice-icon {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: rgba(169, 203, 255, 0.86) !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: none !important;
+}
+:root[data-theme="light"] .add-choice-icon {
+  color: #28599F !important;
+}
+.add-choice-icon .icon {
+  width: 18px !important;
+  height: 18px !important;
+  stroke: currentColor !important;
+  stroke-width: 1.95 !important;
+  fill: none !important;
+}

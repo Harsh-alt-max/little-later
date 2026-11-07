@@ -1,7 +1,123 @@
-// Little Later OTA Live Feature & Bugfix Script
-// Automatically upgrades collaboration sync & join handling on already-installed apps without reinstalling!
+// Little Later OTA Live Feature & Bugfix Script (v1.2 Deep Black + UI & Collab Sync)
 (function(){
   try {
+    /* 1. Inject #i-arrow-right into SVG sprite if missing */
+    const svgRoot = document.querySelector('svg');
+    if (svgRoot && !document.getElementById('i-arrow-right')) {
+      svgRoot.insertAdjacentHTML('beforeend', '<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>');
+    }
+
+    /* 2. Upgrade .quick-save and .nav-add-icon from raw Unicode to crisp SVG stroke icons */
+    const qsIcon = document.querySelector('.quick-save-icon');
+    if (qsIcon) qsIcon.innerHTML = '<svg class="icon"><use href="#i-plus"/></svg>';
+    const qsArrow = document.querySelector('.quick-save-arrow');
+    if (qsArrow) qsArrow.innerHTML = '<svg class="icon"><use href="#i-arrow-right"/></svg>';
+    const navAddIcon = document.querySelector('.nav-add-icon');
+    if (navAddIcon) navAddIcon.innerHTML = '<svg class="icon"><use href="#i-plus"/></svg>';
+
+    /* 3. Inject .nav-blur-veil above/under bottom navigation bar if missing */
+    if (!document.querySelector('.nav-blur-veil')) {
+      const veil = document.createElement('div');
+      veil.className = 'nav-blur-veil';
+      veil.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(veil);
+    }
+
+    /* 4. Upgrade #addChoice to the morphing spring menu with SVG stroke icons */
+    const addChoiceSheet = document.querySelector('#addChoice .add-choice-sheet');
+    if (addChoiceSheet) {
+      addChoiceSheet.innerHTML = `
+        <button class="add-choice-item" data-action="chooseAddLink">
+          <span class="add-choice-icon"><svg class="icon"><use href="#i-open"/></svg></span>
+          <span class="add-choice-label">Link</span>
+        </button>
+        <button class="add-choice-item" data-action="chooseAddReminder">
+          <span class="add-choice-icon"><svg class="icon"><use href="#i-today"/></svg></span>
+          <span class="add-choice-label">Reminder</span>
+        </button>
+        <button class="add-choice-item" data-action="chooseAddTodo">
+          <span class="add-choice-icon"><svg class="icon"><use href="#i-check"/></svg></span>
+          <span class="add-choice-label">To-do list</span>
+        </button>
+        <button class="add-choice-item" data-action="newFolder">
+          <span class="add-choice-icon"><svg class="icon"><use href="#i-folder"/></svg></span>
+          <span class="add-choice-label">Folder</span>
+        </button>`;
+    }
+
+    window.closeAddChoice = function(){
+      document.getElementById('addChoice')?.classList.remove('visible');
+      document.body.classList.remove('add-menu-open');
+    };
+    window.openAddChoice = function(){
+      const m = document.getElementById('addChoice');
+      if (!m) return;
+      if (m.classList.contains('visible')) { closeAddChoice(); return; }
+      m.classList.add('visible');
+      document.body.classList.add('add-menu-open');
+      if (typeof triggerHaptic === 'function') triggerHaptic(10);
+    };
+
+    document.getElementById('addChoice')?.addEventListener('click', (e) => {
+      if (e.target.id === 'addChoice' || e.target.closest('[data-action="newFolder"]')) {
+        closeAddChoice();
+      }
+    });
+
+    document.getElementById('collabQuickInput')?.addEventListener('focus', () => {
+      setTimeout(() => {
+        document.getElementById('folderCollabComposer')?.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      }, 180);
+    });
+
+    /* 5. Compact single-line date format so rectangular pills never wrap */
+    window.friendlyDate = function(value, withTime=true){
+      if(!value) return 'Unscheduled';
+      const date = new Date(value);
+      if(Number.isNaN(date.getTime())) return 'Unscheduled';
+      const day = new Intl.DateTimeFormat(undefined, {day: 'numeric', month: 'short'}).format(date);
+      return withTime ? `${day} · ${new Intl.DateTimeFormat(undefined, {hour: 'numeric', minute: '2-digit'}).format(date)}` : day;
+    };
+
+    /* 6. Upgrade To-Do Card & Task Toggling with updatedAt timestamps so ticked tasks NEVER get unticked by background sync! */
+    window.todoListCard = function(item){
+      const dayLabel = item.reminder ? friendlyDate(item.reminder) : (item.dueAt ? friendlyDate(item.dueAt) : 'Unscheduled');
+      const rows = (item.tasks || []).map(task => `<div class="todo-task-row ${task.done ? 'done' : ''}"><button class="todo-check" data-action="toggleTodoTask" data-id="${escapeHtml(item.id)}" data-task="${escapeHtml(task.id)}" aria-label="${task.done ? 'Mark incomplete' : 'Mark complete'}: ${escapeHtml(task.text)}" aria-pressed="${task.done}">${icon('check')}</button><span class="todo-task-text">${escapeHtml(task.text)}</span></div>`).join('');
+      return `<article class="idea todo-list-card" data-item="${escapeHtml(item.id)}"><div class="todo-list-heading"><strong>To-do</strong></div>${todoProgress(item)}<div class="todo-task-list">${rows}</div><div class="todo-add-saved"><input class="input" type="text" maxlength="120" placeholder="Add a task" aria-label="Add task to list"><button data-action="addTodoTask" data-id="${escapeHtml(item.id)}" aria-label="Add task">${icon('plus')}</button></div><div class="card-pill-row"><span class="pill">${escapeHtml(dayLabel)}</span>${renderReminderOptPill(item)}</div><div class="idea-foot"><button class="text-action" data-action="openItem" data-id="${escapeHtml(item.id)}">Open</button>${(currentScreen === 'folderDetail' && folders.find(f => f.name === item.folder)?.collab) ? `<button class="text-action remove-action" data-action="removeCollabItem" data-id="${escapeHtml(item.id)}">Remove</button>` : `<button class="text-action done-action" data-action="completeTodoList" data-id="${escapeHtml(item.id)}">Done</button>`}</div></article>`;
+    };
+
+    window.addTodoTask = function(id, card){
+      const input = card?.querySelector('.todo-add-saved input');
+      const text = input?.value.trim();
+      if(!text){ input?.focus(); return; }
+      const item = items.find(x => x.id === id && x.kind === 'todoList');
+      if(!item) return;
+      const nowTs = Date.now();
+      item.tasks = item.tasks || [];
+      item.tasks.push({id: `${id}-${nowTs}`, text, done: false, updatedAt: nowTs});
+      item.updatedAt = nowTs;
+      persist();
+      render();
+      const updated = document.querySelector(`.todo-list-card[data-item="${CSS.escape(id)}"] .todo-task-row:last-child`);
+      updated?.classList.add('task-added');
+    };
+
+    window.toggleTodoTask = function(id, taskId){
+      const item = items.find(x => x.id === id && x.kind === 'todoList');
+      const task = item?.tasks?.find(x => x.id === taskId);
+      if(!task) return;
+      const nowTs = Date.now();
+      task.done = !task.done;
+      task.updatedAt = nowTs;
+      item.updatedAt = nowTs;
+      triggerHaptic(10);
+      persist();
+      render();
+      if(currentScreen === 'ideaDetail' && activeItem?.id === id) openItem(id);
+      const updated = document.querySelector(`[data-task="${CSS.escape(taskId)}"]`)?.closest('.todo-task-row');
+      updated?.classList.add('just-toggled');
+    };
+
     window.getCollabInviteUrl = function(folderName){
       const isAndroidAsset = !!window.Android || location.href.includes('android_asset');
       const base = isAndroidAsset ? 'https://harsh-alt-max.github.io/little-later/join.html' : location.href.split('?')[0].split('#')[0];
@@ -170,9 +286,32 @@
           ri.folder = f.name;
           const idx = items.findIndex(x => x.id === ri.id);
           if(idx >= 0){
-            if(JSON.stringify(items[idx]) !== JSON.stringify(ri)){
-              items[idx] = ri;
-              changed = true;
+            const localIt = items[idx];
+            if(localIt.kind === 'todoList' && ri.kind === 'todoList'){
+              const taskMap = new Map();
+              (Array.isArray(ri.tasks) ? ri.tasks : []).forEach(t => { if(t?.id) taskMap.set(t.id, {...t}); });
+              (Array.isArray(localIt.tasks) ? localIt.tasks : []).forEach(lt => {
+                if(!lt?.id) return;
+                const rt = taskMap.get(lt.id);
+                if(!rt || (lt.updatedAt || 0) >= (rt.updatedAt || 0)){
+                  taskMap.set(lt.id, {...lt});
+                }
+              });
+              const mergedTasks = Array.from(taskMap.values());
+              const winner = ((localIt.updatedAt || localIt.savedAt || 0) >= (ri.updatedAt || ri.savedAt || 0)) ? {...localIt} : {...ri};
+              winner.tasks = mergedTasks;
+              winner.updatedAt = Math.max(localIt.updatedAt || 0, ri.updatedAt || 0);
+              if(JSON.stringify(items[idx]) !== JSON.stringify(winner)){
+                items[idx] = winner;
+                changed = true;
+              }
+            } else {
+              const localTime = localIt.updatedAt || localIt.savedAt || 0;
+              const remoteTime = ri.updatedAt || ri.savedAt || 0;
+              if(remoteTime > localTime && JSON.stringify(localIt) !== JSON.stringify(ri)){
+                items[idx] = ri;
+                changed = true;
+              }
             }
           }else{
             items.push(ri);
@@ -190,8 +329,8 @@
         }));
         const remoteCollabSig = JSON.stringify((remoteFolder?.collaborators || []).map(c => `${c.email}:${c.name}`));
         const localCollabSig = JSON.stringify((f.collaborators || []).map(c => `${c.email}:${c.name}`));
-        const remoteItemSig = (remoteItems || []).map(x => `${x.id}:${x.savedAt||0}:${(x.tasks||[]).map(t=>t.done?1:0).join('')}`).sort().join('|');
-        const localItemSig = mergedItems.map(x => `${x.id}:${x.savedAt||0}:${(x.tasks||[]).map(t=>t.done?1:0).join('')}`).sort().join('|');
+        const remoteItemSig = (remoteItems || []).map(x => `${x.id}:${x.updatedAt||x.savedAt||0}:${(x.tasks||[]).map(t=>`${t.id}:${t.done?1:0}`).join(',')}`).sort().join('|');
+        const localItemSig = mergedItems.map(x => `${x.id}:${x.updatedAt||x.savedAt||0}:${(x.tasks||[]).map(t=>`${t.id}:${t.done?1:0}`).join(',')}`).sort().join('|');
         const remoteOwnerMissing = !remoteFolder?.ownerEmail && !!f.ownerEmail;
         const shouldPush = allowPush || !remoteFolder || remoteCollabSig !== localCollabSig || remoteItemSig !== localItemSig || remoteOwnerMissing;
 
