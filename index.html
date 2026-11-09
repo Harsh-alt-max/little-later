@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Little Later — Save Ideas, Organize Links &amp; Remember Them Later</title>
-<meta name="description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
+<meta name="description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android and Chrome.">
 <meta property="og:title" content="Little Later — Save Ideas, Organize Links &amp; Remember Them Later">
-<meta property="og:description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android.">
+<meta property="og:description" content="Save Reels, videos, links, and ideas with Little Later. Organize your finds into folders and set reminders to revisit them. Available for Android and Chrome.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://harsh-alt-max.github.io/little-later/">
 <meta property="og:image" content="https://harsh-alt-max.github.io/little-later/images/mascot.png">
@@ -44,6 +44,8 @@ header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px s
 .btn:hover{text-decoration:none}
 .btn-primary{background:var(--blue);color:#fff}
 .btn-primary:hover{background:var(--deep)}
+.btn-secondary{background:var(--elevated);color:var(--ink);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--glow);text-decoration:none}
 .btn-header{padding:11px 20px;min-height:44px;font-size:14px;position:relative;overflow:hidden;isolation:isolate}
 .btn-header::after{content:"";position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-180%) skewX(-20deg);animation:navshine 3s ease-in-out infinite;pointer-events:none}
 @keyframes navshine{0%{transform:translateX(-180%) skewX(-20deg)}25%{transform:translateX(320%) skewX(-20deg)}100%{transform:translateX(320%) skewX(-20deg)}}
@@ -72,7 +74,7 @@ h3{font-size:16px;line-height:1.35;margin:0;font-weight:700}
 .feature-link{color:var(--ink);text-decoration:none}
 .feature-link:hover{text-decoration:none}
 .feature h3{text-align:left}
-.how-step .step-num,.install-step .step-num{font-size:12px;letter-spacing:.1em;font-weight:800;color:var(--glow);margin:0 0 10px}
+.how-step .step-num,.install-step .step-num,.chrome-step .step-num{font-size:12px;letter-spacing:.1em;font-weight:800;color:var(--glow);margin:0 0 10px}
 .how-step img{width:100%;aspect-ratio:480/520;object-fit:cover;object-position:bottom;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
 .how-step h3{font-size:16px}
 .install-step img{width:100%;height:300px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--border);display:block;margin-bottom:12px}
@@ -86,6 +88,21 @@ h3{font-size:16px;line-height:1.35;margin:0;font-weight:700}
 .capsule:hover{border-color:var(--glow);text-decoration:none}
 .download{text-align:center}
 .download .btn{width:100%;max-width:340px;margin-top:4px}
+.download .btn-secondary{margin-top:12px}
+.capsule-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:18px 0 0}
+.chrome-modal{background:var(--phone);color:var(--ink);border:1px solid var(--border);border-radius:20px;padding:0;max-width:560px;width:calc(100vw - 40px);max-height:85vh;overflow:auto}
+.chrome-modal::backdrop{background:rgba(0,0,0,.72)}
+.chrome-modal-inner{padding:28px 24px;text-align:left}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.modal-head h2{font-size:22px;margin:0 0 8px}
+.modal-x{background:var(--elevated);border:1px solid var(--border);color:var(--ink);width:40px;height:40px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;flex:0 0 auto}
+.modal-note{color:var(--ink2);font-size:13px;margin:0 0 20px}
+.chrome-step{border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;background:var(--bg)}
+.chrome-step h3{font-size:16px;margin:0 0 6px}
+.chrome-step p{color:var(--ink2);font-size:15px;line-height:1.6;margin:0}
+.chrome-addr{display:flex;gap:8px;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin-top:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;word-break:break-all}
+.copy-btn{background:none;border:0;color:var(--glow);font:700 14px var(--sans);cursor:pointer;padding:6px 4px;flex:0 0 auto}
+.modal-close-btn{width:100%;margin-top:8px}
 .download-info{color:var(--ink2);font-size:14px;margin:18px 0 0}
 .download-note{color:var(--ink2);font-size:13px;margin:8px 0 0}
 .faq-list{max-width:640px;margin:0 auto}
@@ -141,7 +158,7 @@ section{padding:64px 0}
 <p class="eyebrow">Your ideas, never forgotten</p>
 <h1 id="hero-heading">Save the <em>Idea</em>.<br>Come Back to It Later.</h1>
 <p class="hero-sub">Save links, videos, and ideas. Revisit them when you&rsquo;re ready.</p>
-<div class="hero-cta"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.1/Little-Later-release-1.1.apk">Download for Android</a><a class="capsule" href="#install">How to download</a></div>
+<div class="hero-cta"><a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.1/Little-Later-release-1.1.apk">Download for Android</a><a class="btn btn-secondary" href="https://harsh-alt-max.github.io/little-later/Little-Later-Chrome-Extension.zip" download>Add to Chrome Extension</a><a class="capsule" href="#install">How to download</a><a class="capsule" href="#chrome-modal" data-open-chrome>How to add to Chrome</a></div>
 <p class="hero-note">Android App &middot; Sign-in Optional</p>
 </div>
 <div class="phone"><img src="images/home.jpg" alt="Little Later home screen showing saved ideas and folders" width="480" height="1040"></div>
@@ -177,7 +194,8 @@ section{padding:64px 0}
 <div class="wrap download">
 <h2 id="download-heading">Ready for a Little Later?</h2>
 <a class="btn btn-primary" href="https://github.com/Harsh-alt-max/little-later/releases/download/v1.1/Little-Later-release-1.1.apk">Download for Android</a>
-<p style="margin:18px 0 0"><a class="capsule" href="#install">How to download</a></p>
+<a class="btn btn-secondary" href="https://harsh-alt-max.github.io/little-later/Little-Later-Chrome-Extension.zip" download>Add to Chrome Extension</a>
+<p class="capsule-row"><a class="capsule" href="#install">How to download</a><a class="capsule" href="#chrome-modal" data-open-chrome>How to add to Chrome</a></p>
 <p class="download-info">Android APK &middot; Version 1.1</p>
 <p class="download-note">Google Play release planned.</p>
 </div>
@@ -208,5 +226,30 @@ section{padding:64px 0}
 <p class="copyright">Copyright &copy; 2026 Little Later.</p>
 </div>
 </footer>
+
+<dialog class="chrome-modal" id="chrome-modal" aria-labelledby="chrome-modal-heading">
+<div class="chrome-modal-inner">
+<div class="modal-head"><h2 id="chrome-modal-heading">How to install the Chrome Extension in 30 seconds</h2><button class="modal-x" type="button" data-close aria-label="Close">&times;</button></div>
+<p class="modal-note">Direct ZIP &middot; No store fee</p>
+<div class="chrome-step"><p class="step-num">01</p><h3>Download &amp; unzip the extension</h3><p>Click <a href="https://harsh-alt-max.github.io/little-later/Little-Later-Chrome-Extension.zip" download>Add to Chrome Extension</a> to download Little-Later-Chrome-Extension.zip, then double-click the downloaded ZIP file so it extracts into a folder.</p></div>
+<div class="chrome-step"><p class="step-num">02</p><h3>Open Chrome Extensions &amp; enable Developer mode</h3><p>Paste the extensions address below into a new browser tab and switch <strong>Developer mode</strong> ON in the top-right corner.</p><div class="chrome-addr"><span>chrome://extensions</span><button class="copy-btn" type="button" id="copy-chrome-addr">Copy address</button></div></div>
+<div class="chrome-step"><p class="step-num">03</p><h3>Click &ldquo;Load unpacked&rdquo; &amp; select the folder</h3><p>Click <strong>Load unpacked</strong> in the top-left corner, choose the unzipped Little-Later-Chrome-Extension folder, and pin Little Later from the puzzle icon in your toolbar.</p></div>
+<button class="btn btn-secondary modal-close-btn" type="button" data-close>Close</button>
+</div>
+</dialog>
+<script>
+(function(){
+var d=document.getElementById('chrome-modal');
+if(!d) return;
+document.querySelectorAll('[data-open-chrome]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();d.showModal();});});
+d.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',function(){d.close();});});
+d.addEventListener('click',function(e){if(e.target===d) d.close();});
+var copy=document.getElementById('copy-chrome-addr');
+if(copy){copy.addEventListener('click',function(){
+var t='chrome://extensions';
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){copy.textContent='Copied';setTimeout(function(){copy.textContent='Copy address';},1600);});}
+});}
+})();
+</script>
 </body>
 </html>
