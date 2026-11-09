@@ -1,4 +1,4 @@
-// Little Later OTA Live Feature & Bugfix Script (v1.2 Deep Black + UI & Collab Sync)
+// Little Later OTA Live Feature & Bugfix Script (v1.3 Deep Black + UI + Two-Way Extension & Collab Sync)
 (function(){
   try {
     /* 1. Inject #i-arrow-right into SVG sprite if missing */
@@ -79,7 +79,34 @@
       return withTime ? `${day} · ${new Intl.DateTimeFormat(undefined, {hour: 'numeric', minute: '2-digit'}).format(date)}` : day;
     };
 
-    /* 6. Upgrade To-Do Card & Task Toggling with updatedAt timestamps so ticked tasks NEVER get unticked by background sync! */
+    /* 6. Track deleted/completed item IDs so two-way sync never resurrects deleted items */
+    const STORE_DELETED = 'll_deleted_ids_v1';
+    window.llDeletedIds = new Set(JSON.parse(localStorage.getItem(STORE_DELETED) || '[]'));
+    function markItemDeleted(id){
+      if(!id) return;
+      window.llDeletedIds.add(String(id));
+      localStorage.setItem(STORE_DELETED, JSON.stringify(Array.from(window.llDeletedIds).slice(-500)));
+    }
+
+    const origCompleteById = window.completeById;
+    window.completeById = function(id){
+      markItemDeleted(id);
+      if(typeof origCompleteById === 'function') return origCompleteById(id);
+    };
+
+    const origCompleteTodoList = window.completeTodoList;
+    window.completeTodoList = function(id){
+      markItemDeleted(id);
+      if(typeof origCompleteTodoList === 'function') return origCompleteTodoList(id);
+    };
+
+    const origRemoveCollabItem = window.removeCollabItem;
+    window.removeCollabItem = function(id){
+      markItemDeleted(id);
+      if(typeof origRemoveCollabItem === 'function') return origRemoveCollabItem(id);
+    };
+
+    /* 7. Upgrade To-Do Card & Task Toggling with updatedAt timestamps so ticked tasks NEVER get unticked by background sync! */
     window.todoListCard = function(item){
       const dayLabel = item.reminder ? friendlyDate(item.reminder) : (item.dueAt ? friendlyDate(item.dueAt) : 'Unscheduled');
       const rows = (item.tasks || []).map(task => `<div class="todo-task-row ${task.done ? 'done' : ''}"><button class="todo-check" data-action="toggleTodoTask" data-id="${escapeHtml(item.id)}" data-task="${escapeHtml(task.id)}" aria-label="${task.done ? 'Mark incomplete' : 'Mark complete'}: ${escapeHtml(task.text)}" aria-pressed="${task.done}">${icon('check')}</button><span class="todo-task-text">${escapeHtml(task.text)}</span></div>`).join('');
@@ -156,67 +183,105 @@
       return clean;
     };
 
-    window.tryHandleCollabJoinUrl = function(rawLink){
+    /* 8. Two-Way Personal Backup Sync (/users/{email}) so saves & folders from Chrome Extension appear on the phone! */
+    window.syncPersonalUserBackupWithFirebase = async function(allowPush=false){
+      if(!currentUser || !currentUser.email) return false;
+      const cleanEmail = currentUser.email.trim().toLowerCase();
+      const docId = encodeURIComponent(cleanEmail);
+      const userDocUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/users/${docId}?key=${FIREBASE_API_KEY}`;
+      const doFetch = typeof authFetchFirestore === 'function' ? authFetchFirestore : fetch;
+      let changed = false;
+
       try{
-        const normalized = String(rawLink || '').startsWith('littlelater://')
-          ? String(rawLink).replace(/^littlelater:\/\//i, 'https://littlelater.app/')
-          : String(rawLink || '');
-        const u = new URL(normalized);
-        const gIdToken = u.searchParams.get('idToken');
-        if(gIdToken && typeof verifyAndCompleteGoogleTokenLogin === 'function'){
-          window.androidShareMode = false;
-          verifyAndCompleteGoogleTokenLogin(gIdToken, u.searchParams.get('refreshToken') || '', u.searchParams.get('googleName') || '');
-          return true;
+        const getRes = await doFetch(userDocUrl, {cache: 'no-store'});
+        if(getRes.ok){
+          const existingDoc = await getRes.json();
+          const storedBackup = existingDoc?.fields?.backupPayload?.stringValue || '';
+          if(storedBackup){
+            const parsed = JSON.parse(storedBackup);
+            const remoteDeleted = Array.isArray(parsed.deletedIds) ? parsed.deletedIds : [];
+            remoteDeleted.forEach(id => window.llDeletedIds.add(String(id)));
+            localStorage.setItem(STORE_DELETED, JSON.stringify(Array.from(window.llDeletedIds).slice(-500)));
+
+            if(Array.isArray(parsed.folders)){
+              parsed.folders.forEach(rf => {
+                if(!rf || !rf.name) return;
+                const idx = folders.findIndex(f => f.name.toLowerCase() === rf.name.toLowerCase());
+                if(idx < 0){
+                  folders.push(rf);
+                  changed = true;
+                }else if(rf.collab && !folders[idx].collab){
+                  folders[idx] = {...folders[idx], ...rf};
+                  changed = true;
+                }
+              });
+            }
+
+            const beforeLen = items.length;
+            items = items.filter(x => !window.llDeletedIds.has(String(x.id)));
+            if(items.length !== beforeLen) changed = true;
+
+            if(Array.isArray(parsed.items)){
+              parsed.items.forEach(ri => {
+                if(!ri || !ri.id || window.llDeletedIds.has(String(ri.id))) return;
+                if(ri.thumbnail === 'mascot.png') ri.thumbnail = '';
+                const matchFolder = folders.find(f => f.name.toLowerCase() === String(ri.folder || '').toLowerCase());
+                if(matchFolder) ri.folder = matchFolder.name;
+                const idx = items.findIndex(x => String(x.id) === String(ri.id));
+                if(idx >= 0){
+                  const localIt = items[idx];
+                  const localTime = localIt.updatedAt || localIt.savedAt || 0;
+                  const remoteTime = ri.updatedAt || ri.savedAt || 0;
+                  if(remoteTime > localTime && JSON.stringify(localIt) !== JSON.stringify(ri)){
+                    items[idx] = ri;
+                    changed = true;
+                  }
+                }else{
+                  items.unshift(ri);
+                  changed = true;
+                  if(ri.url && !ri.thumbnail && typeof fetchFallbackPreview === 'function'){
+                    fetchFallbackPreview(ri.url);
+                  }
+                }
+              });
+            }
+          }
         }
-        const joinName = u.searchParams.get('join') || u.searchParams.get('folder');
-        const joinCid = u.searchParams.get('cid') || '';
-        const joinBy = u.searchParams.get('by') || u.searchParams.get('from') || '';
-        const joinOwner = (u.searchParams.get('owner') || '').trim().toLowerCase();
-        if(!joinName) return false;
-        window.androidShareMode = false;
-        if(!currentUser || !currentUser.email){
-          localStorage.setItem('ll_pending_join_folder', joinName);
-          if(joinCid) localStorage.setItem('ll_pending_join_cid', joinCid);
-          if(joinBy) localStorage.setItem('ll_pending_join_by', joinBy);
-          if(joinOwner) localStorage.setItem('ll_pending_join_owner', joinOwner);
-          show('welcome', false);
-          openAuthModal('signup');
-          toast(`Sign in to join "${joinName}" Collab`);
-          return true;
+
+        if(allowPush){
+          const cleanFolders = folders.map(f => ({...f, image: ''}));
+          const cleanItems = items
+            .filter(x => !window.llDeletedIds.has(String(x.id)))
+            .map(x => ({
+              ...x,
+              thumbnail: (x.thumbnail && (x.thumbnail.startsWith('data:') || x.thumbnail === 'mascot.png')) ? '' : (x.thumbnail || '')
+            }));
+          const backupPayload = JSON.stringify({
+            folders: cleanFolders,
+            items: cleanItems,
+            deletedIds: Array.from(window.llDeletedIds).slice(-300),
+            updatedAt: Date.now()
+          });
+          const fields = {
+            name: {stringValue: String(currentUser.name || cleanEmail.split('@')[0])},
+            email: {stringValue: cleanEmail},
+            backupPayload: {stringValue: backupPayload},
+            lastSeenAt: {integerValue: String(Date.now())}
+          };
+          const mask = 'updateMask.fieldPaths=name&updateMask.fieldPaths=email&updateMask.fieldPaths=backupPayload&updateMask.fieldPaths=lastSeenAt';
+          await doFetch(`${userDocUrl}&${mask}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({fields})
+          });
         }
-        const myEmail = currentUser.email.trim().toLowerCase();
-        const mySlug = myEmail.replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-        let targetF = folders.find(f => (joinCid && f.collabId === joinCid) || f.name.toLowerCase() === joinName.toLowerCase());
-        if(!targetF){
-          targetF = {name: joinName, kind: 'folder', icon: 'folder', collab: true, collabId: joinCid, ownerEmail: joinOwner, ownerName: joinBy, collaborators: []};
-          folders.push(targetF);
-        }
-        targetF.collab = true;
-        if(joinCid) targetF.collabId = joinCid;
-        if(joinOwner) targetF.ownerEmail = joinOwner;
-        if(joinBy && (!targetF.ownerName || targetF.ownerEmail !== myEmail)) targetF.ownerName = joinBy;
-        const cid = getFolderCollabId(targetF);
-        const isForeign = cid.startsWith('cf_') && mySlug && !cid.startsWith('cf_' + mySlug + '_');
-        if(isForeign && targetF.ownerEmail && targetF.ownerEmail.toLowerCase() === myEmail){
-          targetF.ownerEmail = joinOwner || '';
-          targetF.ownerName = joinBy || '';
-        }
-        targetF.collaborators = Array.isArray(targetF.collaborators) ? targetF.collaborators : [];
-        if(isForeign || (targetF.ownerEmail && targetF.ownerEmail.toLowerCase() !== myEmail)){
-          targetF.collaborators.push({name: currentUser.name || myEmail.split('@')[0], email: myEmail, addedAt: Date.now()});
-          dedupeCollaborators(targetF);
-        }
-        activeFolder = targetF.name;
-        persist(true);
-        show('folderDetail', false);
-        toast(`Syncing "${targetF.name}"…`);
-        syncSingleCollabFolderWithFirebase(targetF, true).then(() => {
-          persist(true);
-          render();
-          toast(`Joined "${targetF.name}"!`);
-        });
-        return true;
-      }catch(e){ return false; }
+      }catch(e){}
+      return changed;
+    };
+
+    window.saveUserCloudBackup = async function(email, name){
+      if(!email) return;
+      await window.syncPersonalUserBackupWithFirebase(true);
     };
 
     window.syncSingleCollabFolderWithFirebase = async function(f, allowPush=true){
@@ -283,6 +348,7 @@
 
         remoteItems.forEach(ri => {
           if(!ri || !ri.id || deletedSet.has(ri.id)) return;
+          if(ri.thumbnail === 'mascot.png') ri.thumbnail = '';
           ri.folder = f.name;
           const idx = items.findIndex(x => x.id === ri.id);
           if(idx >= 0){
@@ -325,7 +391,7 @@
         const mergedItems = items.filter(x => x.folder.toLowerCase() === f.name.toLowerCase() && !deletedSet.has(x.id)).map(x => ({
           ...x,
           folder: f.name,
-          thumbnail: x.thumbnail && x.thumbnail.startsWith('data:') ? '' : (x.thumbnail || '')
+          thumbnail: x.thumbnail && (x.thumbnail.startsWith('data:') || x.thumbnail === 'mascot.png') ? '' : (x.thumbnail || '')
         }));
         const remoteCollabSig = JSON.stringify((remoteFolder?.collaborators || []).map(c => `${c.email}:${c.name}`));
         const localCollabSig = JSON.stringify((f.collaborators || []).map(c => `${c.email}:${c.name}`));
@@ -365,9 +431,27 @@
       return changed;
     };
 
+    /* 9. Upgrade pullCollabStateFromFirebase so the phone pulls BOTH personal saves (/users/{email}) AND collab folders every 3 seconds! */
+    window.pullCollabStateFromFirebase = async function(){
+      if(typeof checkPendingGoogleSession === 'function') checkPendingGoogleSession();
+      if(!currentUser || !currentUser.email) return;
+      let changed = false;
+      const personalChanged = await window.syncPersonalUserBackupWithFirebase(false);
+      if(personalChanged) changed = true;
+      const gotNewInvite = (typeof checkIncomingUserInvites === 'function') ? await checkIncomingUserInvites() : false;
+      if(gotNewInvite) changed = true;
+      const myCollabFolders = folders.filter(f => f.collab);
+      for(const f of myCollabFolders){
+        const c = await window.syncSingleCollabFolderWithFirebase(f, false);
+        if(c) changed = true;
+      }
+      if(changed){
+        persist(true);
+        render();
+      }
+    };
+
     /* Trigger an immediate sync pass once OTA patch loads */
-    if(typeof pullCollabStateFromFirebase === 'function'){
-      setTimeout(pullCollabStateFromFirebase, 200);
-    }
+    setTimeout(window.pullCollabStateFromFirebase, 150);
   } catch (err) {}
 })();
