@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "239842393149",
+    "project_id": "littlelater-61969",
+    "storage_bucket": "littlelater-61969.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239842393149:android:f38c4f0216a41bdc903e54",
+        "android_client_info": {
+          "package_name": "com.littlelater.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB892SNxeXdCML_APdGchJzF6k6hAVtbsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

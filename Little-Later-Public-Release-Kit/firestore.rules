@@ -1,0 +1,63 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if the request carries a Firebase Auth token
+    function isSignedIn() {
+      return request.auth != null && request.auth.token.email != null;
+    }
+
+    // 1. User Profiles & Cloud Backups (/users/{userEmail})
+    // Matches exact app fields: name, email, backupPayload, lastSeenAt
+    match /users/{userEmail} {
+      allow get: if (isSignedIn() && request.auth.token.email == userEmail)
+                 || userEmail.matches('^[^@]+@[^@]+\\.[^@]+$');
+      allow list: if false;
+      allow create, update: if ((isSignedIn() && request.auth.token.email == userEmail)
+                                || request.resource.data.email == userEmail)
+                            && request.resource.data.keys().hasAll(['email', 'backupPayload', 'lastSeenAt'])
+                            && request.resource.data.backupPayload is string
+                            && request.resource.data.backupPayload.size() <= 900000;
+      allow delete: if false;
+    }
+
+    // 2. Shared Collaborative Folders (/collab_folders/{folderId})
+    // Matches exact app fields: version, payload
+    match /collab_folders/{folderId} {
+      allow get: if isSignedIn() || folderId.matches('^cf_[a-z0-9_]+$');
+      allow list: if false;
+      allow create, update: if (isSignedIn() || folderId.matches('^cf_[a-z0-9_]+$'))
+                            && request.resource.data.keys().hasAll(['version', 'payload'])
+                            && request.resource.data.payload is string
+                            && request.resource.data.payload.size() <= 900000;
+      allow delete: if false;
+    }
+
+    // 3. Direct Email Invites (/user_invites/{userEmail})
+    // Matches exact app fields: invitesPayload, updatedAt
+    match /user_invites/{userEmail} {
+      allow get: if isSignedIn() || userEmail.matches('^[^@]+@[^@]+\\.[^@]+$');
+      allow list: if false;
+      allow create, update: if (isSignedIn() || userEmail.matches('^[^@]+@[^@]+\\.[^@]+$'))
+                            && request.resource.data.keys().hasAll(['invitesPayload', 'updatedAt'])
+                            && request.resource.data.invitesPayload is string
+                            && request.resource.data.invitesPayload.size() <= 200000;
+      allow delete: if false;
+    }
+
+    // 4. Ephemeral Google OAuth Session Handshake (/collab_state/{authSession})
+    // Matches exact google-auth.html fields: email, name, idToken, refreshToken, ts
+    match /collab_state/{authSession} {
+      allow get: if authSession.size() >= 10;
+      allow list: if false;
+      allow create, update: if authSession.size() >= 10
+                            && request.resource.data.keys().hasAll(['email', 'ts']);
+      allow delete: if false;
+    }
+
+    // 5. Default Deny Everything Else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
